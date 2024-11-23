@@ -6,6 +6,10 @@ use Database\Factories\SchoolFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int id
+ * @property int school_id
+ */
 class School extends Model
 {
     /** @use HasFactory<SchoolFactory> */
