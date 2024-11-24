@@ -2,9 +2,13 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Course
+ */
 class CourseResource extends JsonResource
 {
     /**
@@ -20,7 +24,7 @@ class CourseResource extends JsonResource
             'school_id' => $this->school_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'school' => new SchoolResource($this->whenLoaded())
+            'school' => new SchoolResource($this->whenLoaded('school'))
         ];
     }
 }
