@@ -16,10 +16,13 @@ class GoogleAuthController extends Controller
 {
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->stateless()->redirect();
+        return Socialite::driver('google')
+            ->stateless()
+            ->redirectUrl(config('services.google.redirect'))
+            ->redirect();
     }
 
-    public function handleGoogleCallback(): JsonResponse
+    public function handleGoogleCallback()
     {
         try {
             $user = Socialite::driver('google')->stateless()->user();
@@ -34,17 +37,15 @@ class GoogleAuthController extends Controller
 
             $token = $authUser->createToken('authToken')->plainTextToken;
 
-            return response()->json(
-                [
-                    'success' => true,
-                    'user' => $user,
-                    'access_token' => $token,
-                    'message' => 'Successfully logged in'
-                ]);
+            $frontendUrl = config('app.frontend_url');
+//            return redirect("{$frontendUrl}/login/callback")->withCookie(cookie('auth_token', $token, 60, '/', null, false, true));
+            return redirect("{$frontendUrl}/login/callback?token={$token}");
+
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Login failed',
+                'error' => $e->getMessage(),
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
