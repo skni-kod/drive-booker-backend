@@ -24,7 +24,7 @@ class CourseResource extends JsonResource
             'price' => $this->price->formatTo('PL_pl'),
             'currency' => $this->currency,
             'school' => new SchoolResource($this->whenLoaded('school')),
-            'category' => new CategoryResource($this->whenLoaded('category'))
+            'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -10,12 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Log;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\LoginRequest;
-
 
 class AuthController extends Controller
 {
-
     public function register(Request $request): JsonResponse
     {
         $fields = $request->validate([
@@ -37,7 +35,8 @@ class AuthController extends Controller
                 'user' => $user,
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
-            Log::error('User creation failed: ' . $e->getMessage());
+            Log::error('User creation failed: '.$e->getMessage());
+
             return response()->json([
                 'success' => false,
                 'message' => 'Registration failed. Please try again.',
@@ -52,7 +51,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
 
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],

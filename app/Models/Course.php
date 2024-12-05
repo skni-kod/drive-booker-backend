@@ -29,7 +29,7 @@ class Course extends Model
     ];
 
     protected $casts = [
-        'price' => Money::class
+        'price' => Money::class,
     ];
 
     public function school(): BelongsTo

@@ -24,8 +24,7 @@ class CourseFactory extends Factory
             'school_id' => School::factory(),
             'category_id' => Category::factory(),
             'price' => fake()->randomNumber(4),
-            'currency' => 'PLN'
+            'currency' => 'PLN',
         ];
     }
-
 }

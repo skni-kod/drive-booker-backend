@@ -21,7 +21,7 @@ class SchoolFactory extends Factory
             'name' => fake()->name,
             'city' => fake()->city,
             'address' => fake()->address,
-            'postal_code' => fake()->postcode
+            'postal_code' => fake()->postcode,
         ];
     }
 }

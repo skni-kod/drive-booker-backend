@@ -24,7 +24,7 @@ class SchoolResource extends JsonResource
             'address' => $this->address,
             'postal_code' => $this->postal_code,
             'city' => $this->city,
-            'school' => new SchoolResource($this->whenLoaded('school'))
+            'school' => new SchoolResource($this->whenLoaded('school')),
         ];
     }
 }

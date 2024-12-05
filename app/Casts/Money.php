@@ -14,9 +14,10 @@ class Money implements CastsAttributes
 
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        if (!$value instanceof \Brick\Money\Money) {
+        if (! $value instanceof \Brick\Money\Money) {
             return $value;
         }
+
         return $value->getMinorAmount()->toInt();
     }
 }

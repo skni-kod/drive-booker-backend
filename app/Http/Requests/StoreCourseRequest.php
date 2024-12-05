@@ -16,7 +16,7 @@ class StoreCourseRequest extends FormRequest
     {
         return [
             'start_date' => 'required|date',
-            'id_school' => 'required|integer|exists:schools,id'
+            'id_school' => 'required|integer|exists:schools,id',
         ];
     }
 
