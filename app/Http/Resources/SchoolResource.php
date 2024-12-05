@@ -20,10 +20,10 @@ class SchoolResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'start_date' => $this->start_date,
-            'school_id' => $this->school_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'name' => $this->name,
+            'address' => $this->address,
+            'postal_code' => $this->postal_code,
+            'city' => $this->city,
             'school' => new SchoolResource($this->whenLoaded('school'))
         ];
     }

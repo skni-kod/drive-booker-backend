@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,12 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->dateTimeTz('start_date');
+            $table->date('start_date');
             //https://laravel.com/docs/11.x/migrations#foreign-key-constraints
             $table->foreignId('school_id')->constrained();
+            $table->foreignId('category_id')->constrained();
+            $table->integer('price')->unsigned();
+            $table->string('currency')->default('PLN');
             $table->timestamps();
         });
     }

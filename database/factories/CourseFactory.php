@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\School;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +20,12 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'start_date' => fake()->dateTime(),
-            'school_id' => School::factory()
+            'start_date' => fake()->dateTimeThisYear(),
+            'school_id' => School::factory(),
+            'category_id' => Category::factory(),
+            'price' => fake()->randomNumber(4),
+            'currency' => 'PLN'
         ];
     }
+
 }

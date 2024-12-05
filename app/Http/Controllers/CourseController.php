@@ -20,7 +20,7 @@ class CourseController extends Controller
     {
         return new CourseCollection(
             Course::query()
-                ->with(['school'])
+                ->with(['school', 'category'])
                 ->paginate()
         );
     }
