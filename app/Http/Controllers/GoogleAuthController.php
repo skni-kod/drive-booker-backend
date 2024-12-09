@@ -37,6 +37,7 @@ class GoogleAuthController extends Controller
             $frontendUrl = config('app.frontend_url');
 
             EncryptCookies::except('auth_token');
+
             return redirect("{$frontendUrl}/api/login/google")->withCookie(cookie('auth_token', $token, 1, '/', null, false, true));
 
         } catch (Exception $e) {
