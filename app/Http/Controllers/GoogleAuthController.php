@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Exception;
+use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,8 +36,9 @@ class GoogleAuthController extends Controller
 
             $frontendUrl = config('app.frontend_url');
 
-            //            return redirect("{$frontendUrl}/login/callback")->withCookie(cookie('auth_token', $token, 60, '/', null, false, true));
-            return redirect("{$frontendUrl}/login/callback?token={$token}");
+            EncryptCookies::except('auth_token');
+
+            return redirect("{$frontendUrl}/api/login/google")->withCookie(cookie('auth_token', $token, 1, '/', null, false, true));
 
         } catch (Exception $e) {
             return response()->json([
