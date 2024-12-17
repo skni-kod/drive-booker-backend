@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->dateTimeTz('start_date');
+            $table->date('start_date');
             //https://laravel.com/docs/11.x/migrations#foreign-key-constraints
             $table->foreignId('school_id')->constrained();
+            $table->foreignId('category_id')->constrained();
+            $table->integer('price')->unsigned();
+            $table->string('currency')->default('PLN');
             $table->timestamps();
         });
     }

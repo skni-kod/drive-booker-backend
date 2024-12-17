@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\School;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<School>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
  */
-class SchoolFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +18,7 @@ class SchoolFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
-            'city' => fake()->city,
-            'address' => fake()->address,
-            'postal_code' => fake()->postcode,
+            'name' => fake()->randomElement(Category::CATEGORIES),
         ];
     }
 }

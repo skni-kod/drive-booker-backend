@@ -12,15 +12,13 @@ use Illuminate\Http\Response;
 
 class CourseController extends Controller
 {
-    public function __construct(protected CourseService $courseService)
-    {
-    }
+    public function __construct(protected CourseService $courseService) {}
 
     public function index(): CourseCollection
     {
         return new CourseCollection(
             Course::query()
-                ->with(['school'])
+                ->with(['school', 'category'])
                 ->paginate()
         );
     }
@@ -43,6 +41,7 @@ class CourseController extends Controller
     public function destroy(Course $course): Response
     {
         $this->courseService->delete($course);
+
         return response()->noContent();
     }
 }

@@ -21,10 +21,10 @@ class CourseResource extends JsonResource
         return [
             'id' => $this->id,
             'start_date' => $this->start_date,
-            'school_id' => $this->school_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'school' => new SchoolResource($this->whenLoaded('school'))
+            'price' => $this->price->formatTo('PL_pl'),
+            'currency' => $this->currency,
+            'school' => new SchoolResource($this->whenLoaded('school')),
+            'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

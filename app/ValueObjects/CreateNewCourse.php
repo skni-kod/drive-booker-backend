@@ -6,10 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 final readonly class CreateNewCourse implements Arrayable
 {
-
-    public function __construct(private string $startDate, private int $idSchool)
-    {
-    }
+    public function __construct(private string $startDate, private int $idSchool) {}
 
     public function getStartDate(): string
     {
@@ -25,7 +22,7 @@ final readonly class CreateNewCourse implements Arrayable
     {
         return [
             'start_date' => $this->getStartDate(),
-            'school_id' => $this->getIdSchool()
+            'school_id' => $this->getIdSchool(),
         ];
     }
 }
