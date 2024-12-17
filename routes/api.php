@@ -23,5 +23,3 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
-

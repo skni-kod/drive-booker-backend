@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
-use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,11 +81,10 @@ class AuthController extends Controller
 
         try {
             $user->update($data);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             return response()->json(['message' => "Failed to update user's profile!"], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
+
         return response()->json(['success' => true], Response::HTTP_OK);
     }
 }
