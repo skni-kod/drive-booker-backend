@@ -2,27 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateCreditCardRequest;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\CreditCardService;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use App\Http\Requests\LoginRequest;
-use App\Services\UserService;
-
 
 class AuthController extends Controller
 {
-    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService)
-    {
-    }
+    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService) {}
 
     public function register(Request $request): JsonResponse
     {
@@ -45,7 +40,8 @@ class AuthController extends Controller
                 'user' => $user,
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
-            Log::error('User creation failed: ' . $e->getMessage());
+            Log::error('User creation failed: '.$e->getMessage());
+
             return response()->json([
                 'success' => false,
                 'message' => 'Registration failed. Please try again.',
@@ -60,7 +56,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
 
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],

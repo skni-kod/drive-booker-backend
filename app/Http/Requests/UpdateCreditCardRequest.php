@@ -27,4 +27,3 @@ class UpdateCreditCardRequest extends FormRequest
         return $this->validated();
     }
 }
-

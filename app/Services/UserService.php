@@ -10,10 +10,11 @@ class UserService
     {
         return $user;
     }
+
     public function update(array $data, User $user): User
     {
         $user->update($data);
+
         return $user;
     }
-
 }

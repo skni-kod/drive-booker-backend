@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CreditCardController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Http\Request;
@@ -21,7 +21,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -33,5 +32,3 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
-

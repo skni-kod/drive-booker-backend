@@ -9,14 +9,13 @@ use App\Services\CreditCardService;
 
 class CreditCardController extends Controller
 {
-    public function __construct(protected CreditCardService $creditCardService)
-    {
-    }
+    public function __construct(protected CreditCardService $creditCardService) {}
 
     public function show(User $user): CreditCardResource
     {
         return new CreditCardResource($this->creditCardService->show($user));
     }
+
     public function update(UpdateCreditCardRequest $request, User $user): CreditCardResource
     {
         return new CreditCardResource($this->creditCardService->updateOrCreate($request->updateCard(), $user));

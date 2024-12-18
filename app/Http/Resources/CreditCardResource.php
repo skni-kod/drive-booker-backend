@@ -26,7 +26,7 @@ class CreditCardResource extends JsonResource
     private function maskCardNumber(string $cardNumber): string
     {
         // ############1234
-        return str_repeat('#', strlen($cardNumber) - 4) . substr($cardNumber, -4);
+        return str_repeat('#', strlen($cardNumber) - 4).substr($cardNumber, -4);
     }
 
     private function maskCvv(string $cvv): string

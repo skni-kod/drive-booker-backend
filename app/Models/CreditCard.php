@@ -11,6 +11,7 @@ class CreditCard extends Model
 {
     /** @use HasFactory<CreditCardFactory> */
     use HasFactory;
+
     protected $fillable = [
         'user_id',
         'card_first_name',
@@ -19,6 +20,7 @@ class CreditCard extends Model
         'card_expiry_date',
         'card_cvv',
     ];
+
     protected function casts(): array
     {
         return [
