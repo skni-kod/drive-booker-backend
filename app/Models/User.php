@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -31,12 +32,6 @@ class User extends Authenticatable
         'street',
         'house_number',
 
-        'card_first_name',
-        'card_last_name',
-        'card_number',
-        'card_expiry_date',
-        'card_cvv',
-
     ];
 
     /**
@@ -60,5 +55,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function creditCard(): HasOne
+    {
+        return $this->hasOne(CreditCard::class);
     }
 }

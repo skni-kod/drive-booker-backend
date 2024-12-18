@@ -26,12 +26,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
-            $table->string('card_first_name')->nullable();
-            $table->string('card_last_name')->nullable();
-            $table->string('card_number')->nullable();
-            $table->string('card_expiry_date')->nullable();
-            $table->string('card_cvv')->nullable();
-
             $table->rememberToken();
             $table->timestamps();
         });
