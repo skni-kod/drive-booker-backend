@@ -25,7 +25,6 @@ class CreditCard extends Model
     {
         return [
             'card_number' => 'hashed',
-            'card_expiry_date' => 'hashed',
             'card_cvv' => 'hashed',
         ];
     }
