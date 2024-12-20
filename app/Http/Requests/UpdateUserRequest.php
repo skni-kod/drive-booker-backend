@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'string|min:2|max:30|regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
             'last_name' => 'string|min:2|max:30|regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
-            'email' => 'email|max:255|unique:users,email,' . $this->user->id,
+            'email' => 'email|max:255|unique:users,email,'.$this->user->id,
             'phone_number' => 'string|regex:/^\+?\d{9,15}$/',
             'voivodship' => 'string|min:1|max:30',
             'city' => 'string|min:1|max:30',
