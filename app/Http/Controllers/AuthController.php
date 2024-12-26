@@ -3,17 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Services\CreditCardService;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-use Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
+    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService) {}
+
     public function register(Request $request): JsonResponse
     {
         $fields = $request->validate([
@@ -66,5 +71,16 @@ class AuthController extends Controller
             'access_token' => $token,
             'message' => 'Login successful',
         ], Response::HTTP_OK);
+    }
+
+    public function show(User $user): UserResource
+    {
+        return new UserResource($this->userService->show($user));
+    }
+
+    public function update(UpdateUserRequest $request, User $user): UserResource
+    {
+        return new UserResource($this->userService->update($request->updateUser(), $user));
+
     }
 }
