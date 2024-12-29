@@ -8,26 +8,27 @@ use App\Http\Resources\CourseCollection;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use App\Services\CourseService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class CourseController extends Controller
 {
-    public function __construct(protected CourseService $courseService) {}
+    public function __construct(protected CourseService $courseService)
+    {
+    }
 
     public function index(): CourseCollection
     {
-        $courses = QueryBuilder::for(Course::class)
+        return new CourseCollection(QueryBuilder::for(Course::class)
             ->allowedFilters(AllowedFilter::partial('school.name'),
                 AllowedFilter::exact('school.city'),
                 AllowedFilter::exact('category.name')
             )
             ->allowedSorts(['price', 'start_date'])
             ->with(['school', 'category'])
-            ->paginate(10);
-
-        return new CourseCollection($courses);
+            ->paginate(self::PER_PAGE));
     }
 
     public function store(StoreCourseRequest $request): CourseResource
@@ -52,7 +53,7 @@ class CourseController extends Controller
         return response()->noContent();
     }
 
-    public function locations()
+    public function locations(): JsonResponse
     {
         $cities = Course::query()
             ->join('schools', 'courses.school_id', '=', 'schools.id')

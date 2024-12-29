@@ -25,8 +25,8 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::get('/course-locations', [CourseController::class, 'locations']);
 Route::apiResource('/courses', CourseController::class)->except('update');
-Route::get('/courses-locations', [CourseController::class, 'locations']);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
