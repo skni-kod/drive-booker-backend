@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('card_first_name')->nullable();
-            $table->string('card_last_name')->nullable();
-            $table->string('card_number')->nullable();
-            $table->string('card_expiry_date')->nullable();
-            $table->string('card_cvv')->nullable();
+            $table->string('card_first_name', 32)->nullable();
+            $table->string('card_last_name', 32)->nullable();
+            $table->string('card_number', 16)->nullable();
+            $table->string('card_expiry_date', 5)->nullable();
+            $table->string('card_cvv', 4)->nullable();
             $table->timestamps();
         });
     }
