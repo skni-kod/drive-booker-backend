@@ -59,6 +59,6 @@ class CourseController extends Controller
             ->distinct()
             ->pluck('schools.city');
 
-            return response()->json($cities);
+        return response()->json($cities);
     }
 }
