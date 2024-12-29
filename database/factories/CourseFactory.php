@@ -22,7 +22,7 @@ class CourseFactory extends Factory
         return [
             'start_date' => fake()->dateTimeThisYear(),
             'school_id' => School::factory(),
-            'category_id' => Category::factory(),
+            'category_id' => Category::inRandomOrder()->first()->id,
             'price' => fake()->randomNumber(4),
             'currency' => 'PLN',
         ];
