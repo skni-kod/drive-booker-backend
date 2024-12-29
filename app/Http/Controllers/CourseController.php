@@ -15,9 +15,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class CourseController extends Controller
 {
-    public function __construct(protected CourseService $courseService)
-    {
-    }
+    public function __construct(protected CourseService $courseService) {}
 
     public function index(): CourseCollection
     {
