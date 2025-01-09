@@ -25,7 +25,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
 Route::get('/course-locations', [CourseController::class, 'locations']);
 
 Route::post('login', [AuthController::class, 'login']);
