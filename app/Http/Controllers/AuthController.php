@@ -17,14 +17,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService) {}
+    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService)
+    {
+    }
 
     public function register(Request $request): JsonResponse
     {
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ]);
 
         try {
@@ -40,7 +42,7 @@ class AuthController extends Controller
                 'user' => $user,
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
-            Log::error('User creation failed: '.$e->getMessage());
+            Log::error('User creation failed: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
@@ -56,7 +58,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $credentials['email'])->first();
 
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
 
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
