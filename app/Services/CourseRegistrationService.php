@@ -15,6 +15,7 @@ class CourseRegistrationService
             'user_id' => $user->id(),
             'status' => RegistrationStatus::Pending,
         ]);
+
         return $registration;
     }
 }

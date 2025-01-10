@@ -9,12 +9,9 @@ use Illuminate\Http\Request;
 
 class CourseRegistrationController extends Controller
 {
-    public function __construct(protected CourseRegistrationService $courseRegistrationService){}
+    public function __construct(protected CourseRegistrationService $courseRegistrationService) {}
 
-    public function index()
-    {
-
-    }
+    public function index() {}
 
     public function store(Request $request, $courseId, User $user): CourseRegistrationResource
     {
@@ -22,9 +19,5 @@ class CourseRegistrationController extends Controller
 
     }
 
-    public function update(Request $request, $registrationId)
-    {
-
-    }
-
+    public function update(Request $request, $registrationId) {}
 }
