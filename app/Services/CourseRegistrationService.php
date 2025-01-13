@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Enums\RegistrationStatus;
-use App\Models\Course;
 use App\Models\CourseRegistration;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +13,7 @@ class CourseRegistrationService
     {
         return CourseRegistration::all();
     }
+
     public function create($courseId): CourseRegistration
     {
         $user = Auth::user();
@@ -31,6 +31,7 @@ class CourseRegistrationService
         $registration = CourseRegistration::findOrFail($registrationId);
         $registration->status = $data['status'];
         $registration->save();
+
         return $registration;
     }
 }

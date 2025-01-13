@@ -26,14 +26,13 @@ class UpdateCourseRegistrationRequest extends FormRequest
             'status' => [
                 'required',
                 'string',
-                'in:' . implode(',', [RegistrationStatus::ACCEPTED->value, RegistrationStatus::REJECTED->value]),
+                'in:'.implode(',', [RegistrationStatus::ACCEPTED->value, RegistrationStatus::REJECTED->value]),
             ],
         ];
     }
+
     public function updateStatus(): array
     {
         return $this->validated();
     }
 }
-
-

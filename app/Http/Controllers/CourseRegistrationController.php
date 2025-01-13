@@ -6,11 +6,10 @@ use App\Http\Requests\UpdateCourseRegistrationRequest;
 use App\Http\Resources\CourseRegistrationCollection;
 use App\Http\Resources\CourseRegistrationResource;
 use App\Services\CourseRegistrationService;
-use Illuminate\Http\Request;
 
 class CourseRegistrationController extends Controller
 {
-    public function __construct(protected CourseRegistrationService $courseRegistrationService){}
+    public function __construct(protected CourseRegistrationService $courseRegistrationService) {}
 
     public function index(): CourseRegistrationCollection
     {
@@ -27,5 +26,4 @@ class CourseRegistrationController extends Controller
     {
         return new CourseRegistrationResource($this->courseRegistrationService->update($request->updateStatus(), $registrationId));
     }
-
 }
