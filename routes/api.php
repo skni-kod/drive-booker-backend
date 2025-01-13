@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseRegistrationController;
 use App\Http\Controllers\CreditCardController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Http\Request;
@@ -33,3 +34,12 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+// CourseRegistrations
+Route::middleware('auth:sanctum')->group(function () {
+    Route::controller(CourseRegistrationController::class)->group(function () {
+        Route::get('course-registrations', 'index');
+        Route::post('course-registrations/{courseId}/create', 'store');
+        Route::put('course-registrations/{registrationId}', 'update');
+    });
+});

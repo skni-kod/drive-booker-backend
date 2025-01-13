@@ -4,7 +4,7 @@ namespace App\Enums;
 
 enum RegistrationStatus: string
 {
-    case Pending = 'pending';
-    case Accepted = 'accepted';
-    case Rejected = 'rejected';
+    case PENDING = 'pending';
+    case ACCEPTED = 'accepted';
+    case REJECTED = 'rejected';
 }
