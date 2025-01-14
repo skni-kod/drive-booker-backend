@@ -4,6 +4,7 @@ namespace App\ValueObjects;
 
 use App\Enums\RegistrationStatus;
 use Illuminate\Contracts\Support\Arrayable;
+
 final readonly class CreateCourseRegistration implements Arrayable
 {
     public function __construct(private int $courseId, private int $userId) {}
@@ -12,10 +13,12 @@ final readonly class CreateCourseRegistration implements Arrayable
     {
         return $this->courseId;
     }
+
     public function getUserId(): int
     {
         return $this->userId;
     }
+
     public function toArray(): array
     {
         return [

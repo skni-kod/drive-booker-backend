@@ -11,6 +11,7 @@ class CourseRegistration extends Model
 {
     /** @use HasFactory<CourseRegistrationFactory> */
     use HasFactory;
+
     protected $fillable = [
         'course_id',
         'user_id',
