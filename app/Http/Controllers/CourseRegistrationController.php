@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCourseRegistrationRequest;
 use App\Http\Requests\UpdateCourseRegistrationRequest;
 use App\Http\Resources\CourseRegistrationCollection;
 use App\Http\Resources\CourseRegistrationResource;
@@ -16,14 +17,13 @@ class CourseRegistrationController extends Controller
         return new CourseRegistrationCollection($this->courseRegistrationService->index());
     }
 
-    public function store($courseId): CourseRegistrationResource
+    public function store(StoreCourseRegistrationRequest $request, $courseId): CourseRegistrationResource
     {
-        return new CourseRegistrationResource($this->courseRegistrationService->create($courseId));
-
+        return new CourseRegistrationResource($this->courseRegistrationService->create($request->getCourseRegistration($courseId)));
     }
 
     public function update(UpdateCourseRegistrationRequest $request, $registrationId): CourseRegistrationResource
     {
-        return new CourseRegistrationResource($this->courseRegistrationService->update($request->updateStatus(), $registrationId));
+        return new CourseRegistrationResource($this->courseRegistrationService->update($request->getCourseRegistration(), $registrationId));
     }
 }

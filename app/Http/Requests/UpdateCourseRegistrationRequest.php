@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Enums\RegistrationStatus;
+use App\ValueObjects\CreateNewCourse;
+use App\ValueObjects\UpdateCourseRegistration;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCourseRegistrationRequest extends FormRequest
@@ -30,9 +32,9 @@ class UpdateCourseRegistrationRequest extends FormRequest
             ],
         ];
     }
-
-    public function updateStatus(): array
+    public function getCourseRegistration(): UpdateCourseRegistration
     {
-        return $this->validated();
+        $status = RegistrationStatus::from($this->get('status'));
+        return new UpdateCourseRegistration($status);
     }
 }

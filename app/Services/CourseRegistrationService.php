@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
-use App\Enums\RegistrationStatus;
+use App\Models\Course;
 use App\Models\CourseRegistration;
+use App\ValueObjects\CreateCourseRegistration;
+use App\ValueObjects\UpdateCourseRegistration;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class CourseRegistrationService
 {
@@ -14,24 +15,16 @@ class CourseRegistrationService
         return CourseRegistration::all();
     }
 
-    public function create($courseId): CourseRegistration
+    public function create(CreateCourseRegistration $data): CourseRegistration
     {
-        $user = Auth::user();
-        $registration = CourseRegistration::create([
-            'course_id' => $courseId,
-            'user_id' => $user->id,
-            'status' => RegistrationStatus::PENDING->value,
-        ]);
-
-        return $registration;
+        Course::findOrFail($data->getCourseId()); // check if course exists
+        return CourseRegistration::create($data->toArray());
     }
 
-    public function update(array $data, $registrationId): CourseRegistration
+    public function update(UpdateCourseRegistration $data, $registrationId): CourseRegistration
     {
         $registration = CourseRegistration::findOrFail($registrationId);
-        $registration->status = $data['status'];
-        $registration->save();
-
+        $registration->update($data->toArray());
         return $registration;
     }
 }
