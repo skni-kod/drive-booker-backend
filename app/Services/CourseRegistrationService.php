@@ -17,16 +17,12 @@ class CourseRegistrationService
 
     public function create(CreateCourseRegistration $data): CourseRegistration
     {
-        Course::findOrFail($data->getCourseId()); // check if course exists
-
         return CourseRegistration::create($data->toArray());
     }
 
-    public function update(UpdateCourseRegistration $data, $registrationId): CourseRegistration
+    public function update(UpdateCourseRegistration $data, CourseRegistration $courseRegistration): CourseRegistration
     {
-        $registration = CourseRegistration::findOrFail($registrationId);
-        $registration->update($data->toArray());
-
-        return $registration;
+        $courseRegistration->update($data->toArray());
+        return $courseRegistration;
     }
 }

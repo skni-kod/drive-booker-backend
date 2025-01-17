@@ -22,13 +22,15 @@ class StoreCourseRegistrationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+            'course_id' => 'required|integer|exists:courses,id'
+        ];
     }
 
-    public function getCourseRegistration(int $courseId): CreateCourseRegistration
+    public function getCourseRegistration(): CreateCourseRegistration
     {
         return new CreateCourseRegistration(
-            $courseId,
+            $this->get('course_id'),
             auth()->id()
         );
     }

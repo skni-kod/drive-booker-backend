@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCourseRegistrationRequest;
 use App\Http\Requests\UpdateCourseRegistrationRequest;
 use App\Http\Resources\CourseRegistrationCollection;
 use App\Http\Resources\CourseRegistrationResource;
+use App\Models\CourseRegistration;
 use App\Services\CourseRegistrationService;
 
 class CourseRegistrationController extends Controller
@@ -17,13 +18,13 @@ class CourseRegistrationController extends Controller
         return new CourseRegistrationCollection($this->courseRegistrationService->index());
     }
 
-    public function store(StoreCourseRegistrationRequest $request, $courseId): CourseRegistrationResource
+    public function store(StoreCourseRegistrationRequest $request): CourseRegistrationResource
     {
-        return new CourseRegistrationResource($this->courseRegistrationService->create($request->getCourseRegistration($courseId)));
+        return new CourseRegistrationResource($this->courseRegistrationService->create($request->getCourseRegistration()));
     }
 
-    public function update(UpdateCourseRegistrationRequest $request, $registrationId): CourseRegistrationResource
+    public function update(UpdateCourseRegistrationRequest $request, CourseRegistration $courseRegistration): CourseRegistrationResource
     {
-        return new CourseRegistrationResource($this->courseRegistrationService->update($request->getCourseRegistration(), $registrationId));
+        return new CourseRegistrationResource($this->courseRegistrationService->update($request->getCourseRegistration(), $courseRegistration));
     }
 }

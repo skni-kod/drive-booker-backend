@@ -39,7 +39,7 @@ Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallba
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(CourseRegistrationController::class)->group(function () {
         Route::get('course-registrations', 'index');
-        Route::post('course-registrations/{courseId}/create', 'store');
-        Route::put('course-registrations/{registrationId}', 'update');
+        Route::post('course-registrations', 'store');
+        Route::put('course-registrations/{courseRegistration}', 'update');
     });
 });

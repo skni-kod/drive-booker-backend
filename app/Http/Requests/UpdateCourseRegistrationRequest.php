@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Enums\RegistrationStatus;
 use App\ValueObjects\UpdateCourseRegistration;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateCourseRegistrationRequest extends FormRequest
 {
@@ -26,8 +27,7 @@ class UpdateCourseRegistrationRequest extends FormRequest
         return [
             'status' => [
                 'required',
-                'string',
-                'in:'.implode(',', [RegistrationStatus::ACCEPTED->value, RegistrationStatus::REJECTED->value]),
+                Rule::in(RegistrationStatus::values()),
             ],
         ];
     }
@@ -35,7 +35,6 @@ class UpdateCourseRegistrationRequest extends FormRequest
     public function getCourseRegistration(): UpdateCourseRegistration
     {
         $status = RegistrationStatus::from($this->get('status'));
-
         return new UpdateCourseRegistration($status);
     }
 }
