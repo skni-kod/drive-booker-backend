@@ -1,9 +1,9 @@
 <?php
 
+use App\Enums\RegistrationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use \App\Enums\RegistrationStatus;
 
 return new class extends Migration
 {
@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('course_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->enum('status', [
-                    RegistrationStatus::PENDING->value,
-                    RegistrationStatus::ACCEPTED->value,
-                    RegistrationStatus::REJECTED->value
+                RegistrationStatus::PENDING->value,
+                RegistrationStatus::ACCEPTED->value,
+                RegistrationStatus::REJECTED->value,
             ])->default(RegistrationStatus::PENDING->value);
             $table->timestamps();
         });

@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Course;
 use App\Models\CourseRegistration;
 use App\ValueObjects\CreateCourseRegistration;
 use App\ValueObjects\UpdateCourseRegistration;
@@ -23,6 +22,7 @@ class CourseRegistrationService
     public function update(UpdateCourseRegistration $data, CourseRegistration $courseRegistration): CourseRegistration
     {
         $courseRegistration->update($data->toArray());
+
         return $courseRegistration;
     }
 }

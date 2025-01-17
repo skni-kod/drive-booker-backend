@@ -35,6 +35,7 @@ class UpdateCourseRegistrationRequest extends FormRequest
     public function getCourseRegistration(): UpdateCourseRegistration
     {
         $status = RegistrationStatus::from($this->get('status'));
+
         return new UpdateCourseRegistration($status);
     }
 }
