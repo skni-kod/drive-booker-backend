@@ -23,7 +23,7 @@ class StoreCourseRegistrationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return[];
+        return [];
     }
 
     public function getCourseRegistration(Course $course): CreateCourseRegistration

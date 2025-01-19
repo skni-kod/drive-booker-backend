@@ -23,7 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('courses.registrations', CourseRegistrationController::class)->shallow();
 });
 
-
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -36,5 +35,3 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
-

@@ -4,7 +4,6 @@ use App\Enums\RegistrationStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Validation\Rule;
 
 return new class extends Migration
 {
