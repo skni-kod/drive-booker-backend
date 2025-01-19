@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class EventController extends Controller
 {
     use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -49,6 +50,7 @@ class EventController extends Controller
         ]);
 
         $event->update($validated);
+
         return response()->json($event);
     }
 

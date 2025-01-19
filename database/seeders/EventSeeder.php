@@ -1,9 +1,10 @@
 <?php
+
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Event;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
 {
@@ -49,4 +50,3 @@ class EventSeeder extends Seeder
         }
     }
 }
-
