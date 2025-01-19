@@ -27,7 +27,7 @@ class UpdateCourseRegistrationRequest extends FormRequest
         return [
             'status' => [
                 'required',
-                Rule::in(RegistrationStatus::values()),
+                Rule::in(RegistrationStatus::acceptedAndRejectedValues()),
             ],
         ];
     }

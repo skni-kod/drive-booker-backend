@@ -13,4 +13,11 @@ enum RegistrationStatus: string
     {
         return array_column(self::cases(), 'value');
     }
+    public static function acceptedAndRejectedValues(): array
+    {
+        return [
+            self::ACCEPTED->value,
+            self::REJECTED->value,
+        ];
+    }
 }

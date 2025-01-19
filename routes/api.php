@@ -13,14 +13,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('user/{user}', 'show');
         Route::put('user/{user}', 'update');
     });
-});
 
-Route::middleware('auth:sanctum')->group(function () {
     Route::controller(CreditCardController::class)->group(function () {
         Route::get('user/{user}/credit-card', 'show');
         Route::put('user/{user}/credit-card', 'update');
     });
+
+    // Course Registrations
+    Route::resource('courses.registrations', CourseRegistrationController::class)->shallow();
 });
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -35,11 +37,4 @@ Route::post('register', [AuthController::class, 'register']);
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
-// CourseRegistrations
-Route::middleware('auth:sanctum')->group(function () {
-    Route::controller(CourseRegistrationController::class)->group(function () {
-        Route::get('course-registrations', 'index');
-        Route::post('course-registrations', 'store');
-        Route::put('course-registrations/{courseRegistration}', 'update');
-    });
-});
+

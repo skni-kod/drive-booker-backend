@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Course;
 use App\ValueObjects\CreateCourseRegistration;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,15 +23,13 @@ class StoreCourseRegistrationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'course_id' => 'required|integer|exists:courses,id',
-        ];
+        return[];
     }
 
-    public function getCourseRegistration(): CreateCourseRegistration
+    public function getCourseRegistration(Course $course): CreateCourseRegistration
     {
         return new CreateCourseRegistration(
-            $this->get('course_id'),
+            $course->id,
             auth()->id()
         );
     }
