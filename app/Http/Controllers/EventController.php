@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -14,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return response()->json(auth()->user()->events);
+        $events = Event::all();
+        return EventResource::collection($events);
     }
 
     /**
