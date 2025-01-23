@@ -33,7 +33,7 @@ class EventController extends Controller
 
         $event = auth()->user()->events()->create($validated);
 
-        return response()->json($event, 201);
+        return response()->json(new EventResource($event), 201);
     }
 
     /**
@@ -51,7 +51,7 @@ class EventController extends Controller
 
         $event->update($validated);
 
-        return response()->json($event);
+        return response()->json(new EventResource($event));
     }
 
     /**
