@@ -24,7 +24,7 @@ class AuthController extends Controller
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|confirmed',
         ]);
 
         try {
@@ -54,7 +54,7 @@ class AuthController extends Controller
 
         $credentials = $request->validated();
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::with(['roles:id,name'])->where('email', $credentials['email'])->first();
 
         if (! $user || ! Hash::check($credentials['password'], $user->password)) {
 
@@ -67,7 +67,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
-            'user' => $user,
+            'user' => new UserResource($user),
             'access_token' => $token,
             'message' => 'Login successful',
         ], Response::HTTP_OK);
