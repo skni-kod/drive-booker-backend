@@ -19,10 +19,12 @@ final readonly class StoreStudentCourseRegistration implements Arrayable
     {
         return $this->courseId;
     }
+
     public function getName(): string
     {
         return $this->name;
     }
+
     public function getLast_Name(): string
     {
         return $this->last_name;
@@ -32,6 +34,7 @@ final readonly class StoreStudentCourseRegistration implements Arrayable
     {
         return $this->email;
     }
+
     public function getPhone(): string
     {
         return $this->phone;

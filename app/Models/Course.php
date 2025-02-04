@@ -48,6 +48,7 @@ class Course extends Model
     {
         return $this->belongsToMany(User::class, 'course_user');
     }
+
     public function registrations(): hasMany
     {
         return $this->hasMany(CourseRegistration::class);

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\RegistrationStatus;
 use Database\Factories\CourseRegistrationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,12 +17,11 @@ class CourseRegistration extends Model
         'name',
         'last_name',
         'email',
-        'phone'
+        'phone',
     ];
 
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
-
 }

@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\CourseRegistration;
 use App\Models\Course;
+use App\Models\CourseRegistration;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CourseRegistration>
