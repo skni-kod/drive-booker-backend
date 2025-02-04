@@ -2,16 +2,23 @@
 
 namespace Database\Factories;
 
-use App\Enums\RegistrationStatus;
+use App\Models\CourseRegistration;
 use App\Models\Course;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CourseRegistration>
  */
 class CourseRegistrationFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = CourseRegistration::class;
+
     /**
      * Define the model's default state.
      *
@@ -21,8 +28,10 @@ class CourseRegistrationFactory extends Factory
     {
         return [
             'course_id' => Course::factory(),
-            'user_id' => User::factory(),
-            'status' => RegistrationStatus::PENDING->value,
+            'name' => $this->faker->firstName(),
+            'last_name' => $this->faker->lastName(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone' => $this->faker->phoneNumber(),
         ];
     }
 }

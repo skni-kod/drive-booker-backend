@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -62,9 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(CreditCard::class);
     }
-
-    public function courseRegistrations(): HasMany
+    public function courses(): BelongsToMany
     {
-        return $this->hasMany(CourseRegistration::class);
+        return $this->belongsToMany(Course::class, 'course_user');
     }
+
 }

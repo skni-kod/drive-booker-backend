@@ -6,6 +6,7 @@ use App\Enums\RegistrationStatus;
 use Database\Factories\CourseRegistrationFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CourseRegistration extends Model
 {
@@ -14,21 +15,15 @@ class CourseRegistration extends Model
 
     protected $fillable = [
         'course_id',
-        'user_id',
-        'status',
+        'name',
+        'last_name',
+        'email',
+        'phone'
     ];
 
-    protected $casts = [
-        'status' => RegistrationStatus::class,
-    ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function course()
+    public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
+
 }

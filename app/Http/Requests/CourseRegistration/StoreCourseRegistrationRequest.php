@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\CourseRegistration;
 
 use App\Models\Course;
 use App\ValueObjects\CreateCourseRegistration;
