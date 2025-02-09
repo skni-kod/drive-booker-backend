@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\CourseRegistration;
 
-use App\Models\Course;
 use App\ValueObjects\CreateCourseRegistration;
 use Illuminate\Foundation\Http\FormRequest;
 

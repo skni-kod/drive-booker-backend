@@ -21,9 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Admin Course Registrations
-//    Route::prefix('admin')->group(function () {
-//        Route::resource('courses.registrations', AdminCourseRegistrationController::class)->shallow();
-//    });
+    //    Route::prefix('admin')->group(function () {
+    //        Route::resource('courses.registrations', AdminCourseRegistrationController::class)->shallow();
+    //    });
 });
 
 Route::get('/user', function (Request $request) {

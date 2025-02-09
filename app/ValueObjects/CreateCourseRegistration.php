@@ -2,7 +2,6 @@
 
 namespace App\ValueObjects;
 
-use App\Enums\RegistrationStatus;
 use Illuminate\Contracts\Support\Arrayable;
 
 final readonly class CreateCourseRegistration implements Arrayable

@@ -23,7 +23,7 @@ class CourseRegistrationService
         if ($existing) {
             throw new \Exception('Użytkownik jest już zapisany na ten kurs.');
         }
+
         return CourseRegistration::create($data->toArray());
     }
-
 }

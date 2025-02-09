@@ -11,5 +11,4 @@ class GuestCourseRegistrationService
     {
         return CourseRegistration::create($data->toArray());
     }
-
 }
