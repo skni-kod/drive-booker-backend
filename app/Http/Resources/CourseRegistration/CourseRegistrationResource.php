@@ -18,7 +18,6 @@ class CourseRegistrationResource extends JsonResource
             'id' => $this->id,
             'course_id' => $this->course_id,
             'user_id' => $this->user_id,
-            'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

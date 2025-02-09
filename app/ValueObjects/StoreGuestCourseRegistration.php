@@ -5,7 +5,7 @@ namespace App\ValueObjects;
 use App\Enums\RegistrationStatus;
 use Illuminate\Contracts\Support\Arrayable;
 
-final readonly class StoreStudentCourseRegistration implements Arrayable
+final readonly class StoreGuestCourseRegistration implements Arrayable
 {
     public function __construct(
         private int $courseId,

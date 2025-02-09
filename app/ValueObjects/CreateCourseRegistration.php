@@ -24,7 +24,6 @@ final readonly class CreateCourseRegistration implements Arrayable
         return [
             'course_id' => $this->getCourseId(),
             'user_id' => $this->getUserId(),
-            'status' => RegistrationStatus::PENDING->value,
         ];
     }
 }

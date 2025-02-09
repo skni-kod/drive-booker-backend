@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseRegistration\AdminCourseRegistrationController;
-use App\Http\Controllers\CourseRegistration\StudentCourseRegistrationController;
+use App\Http\Controllers\CourseRegistration\GuestCourseRegistrationController;
 use App\Http\Controllers\CreditCardController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Http\Request;
@@ -21,9 +21,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Admin Course Registrations
-    Route::prefix('admin')->group(function () {
-        Route::resource('courses.registrations', AdminCourseRegistrationController::class)->shallow();
-    });
+//    Route::prefix('admin')->group(function () {
+//        Route::resource('courses.registrations', AdminCourseRegistrationController::class)->shallow();
+//    });
 });
 
 Route::get('/user', function (Request $request) {
@@ -34,7 +34,7 @@ Route::get('/course-locations', [CourseController::class, 'locations']);
 Route::apiResource('/courses', CourseController::class)->except('update');
 
 // Student Course Registrations
-Route::controller(StudentCourseRegistrationController::class)->group(function () {
+Route::controller(GuestCourseRegistrationController::class)->group(function () {
     Route::post('courses/{course}/registrations', 'store');
 });
 

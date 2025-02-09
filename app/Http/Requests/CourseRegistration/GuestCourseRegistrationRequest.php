@@ -3,10 +3,10 @@
 namespace App\Http\Requests\CourseRegistration;
 
 use App\Models\Course;
-use App\ValueObjects\StoreStudentCourseRegistration;
+use App\ValueObjects\StoreGuestCourseRegistration;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStudentCourseRegistrationRequest extends FormRequest
+class GuestCourseRegistrationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -49,9 +49,9 @@ class StoreStudentCourseRegistrationRequest extends FormRequest
         ];
     }
 
-    public function getStudentCourseRegistration(Course $course): StoreStudentCourseRegistration
+    public function getGuestCourseRegistration(Course $course): StoreGuestCourseRegistration
     {
-        return new StoreStudentCourseRegistration(
+        return new StoreGuestCourseRegistration(
             $course->id,
             $this->get('name'),
             $this->get('last_name'),
