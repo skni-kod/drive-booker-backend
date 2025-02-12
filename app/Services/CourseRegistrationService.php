@@ -25,6 +25,4 @@ class CourseRegistrationService
 
         $user->courses()->attach($courseId);
     }
-
-
 }

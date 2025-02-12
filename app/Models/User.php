@@ -67,6 +67,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Course::class, 'course_user')->withTimestamps();
     }
+
     public function isRegisteredToCourse($courseId): bool
     {
         return $this->courses()->where('course_id', $courseId)->exists();

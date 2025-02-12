@@ -23,6 +23,7 @@ class AdminCourseRegistrationController extends Controller
     public function store(StoreCourseRegistrationRequest $request): JsonResponse
     {
         $this->courseRegistrationService->store($request->getRegistration());
+
         return response()->json(['message' => 'Użytkownik został zapisany na kurs!'], 201);
     }
     //
