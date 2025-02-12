@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class EventResource extends JsonResource
+class InstructorEventResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,6 +16,7 @@ class EventResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'driver' => new DriverResource($this->whenLoaded('driver')),
             'title' => $this->title,
             'start' => $this->start,
             'end' => $this->end,

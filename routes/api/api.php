@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CreditCardController;
-use App\Http\Controllers\EventController;
+use App\Http\Controllers\DriverEventController;
 use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,10 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('user/{user}/credit-card', 'show');
         Route::put('user/{user}/credit-card', 'update');
     });
-});
-
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('/events', EventController::class);
 });
 
 Route::get('/user', function (Request $request) {
