@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\CourseRegistration;
+use App\Models\User;
 use App\ValueObjects\CreateCourseRegistration;
 use Illuminate\Support\Collection;
 
@@ -13,17 +14,17 @@ class CourseRegistrationService
         return CourseRegistration::all();
     }
 
-    public function store(CreateCourseRegistration $data): CourseRegistration
+    public function store(CreateCourseRegistration $data): void
     {
-        $existing = CourseRegistration::where([
-            'user_id' => $data->user_id,
-            'course_id' => $data->course_id,
-        ])->first();
+        $user = User::find($data->getUserId());
+        $courseId = $data->getCourseId();
 
-        if ($existing) {
+        if ($user->isRegisteredToCourse($courseId)) {
             throw new \Exception('Użytkownik jest już zapisany na ten kurs.');
         }
 
-        return CourseRegistration::create($data->toArray());
+        $user->courses()->attach($courseId);
     }
+
+
 }

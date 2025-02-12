@@ -9,6 +9,7 @@ use App\Http\Resources\CourseRegistration\CourseRegistrationCollection;
 use App\Http\Resources\CourseRegistration\CourseRegistrationResource;
 use App\Models\CourseRegistration;
 use App\Services\CourseRegistrationService;
+use Illuminate\Http\JsonResponse;
 
 class AdminCourseRegistrationController extends Controller
 {
@@ -19,9 +20,10 @@ class AdminCourseRegistrationController extends Controller
         return new CourseRegistrationCollection($this->courseRegistrationService->index());
     }
 
-    public function store(StoreCourseRegistrationRequest $request): CourseRegistrationResource
+    public function store(StoreCourseRegistrationRequest $request): JsonResponse
     {
-        return new CourseRegistrationResource($this->courseRegistrationService->store($request->getRegistration()));
+        $this->courseRegistrationService->store($request->getRegistration());
+        return response()->json(['message' => 'Użytkownik został zapisany na kurs!'], 201);
     }
     //
     //    public function update(UpdateCourseRegistrationRequest $request, CourseRegistration $courseRegistration): CourseRegistrationResource

@@ -6,16 +6,16 @@ use Illuminate\Contracts\Support\Arrayable;
 
 final readonly class CreateCourseRegistration implements Arrayable
 {
-    public function __construct(private int $courseId, private int $userId) {}
+    public function __construct(private int $course_id, private int $user_id) {}
 
     public function getCourseId(): int
     {
-        return $this->courseId;
+        return $this->course_id;
     }
 
     public function getUserId(): int
     {
-        return $this->userId;
+        return $this->user_id;
     }
 
     public function toArray(): array
