@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreInstructorEventRequest;
+use App\Http\Requests\UpdateInstructorEventRequest;
 use App\Http\Resources\DriverEventResource;
 use App\Http\Resources\InstructorEventResource;
 use App\Models\Event;
@@ -22,7 +24,7 @@ class InstructorEventController extends Controller
 
         $driverIds = $instructor->drivers->pluck('id');
 
-        $events = Event::whereIn('user_id', $driverIds)->with('driver')->get();
+        $events = Event::whereIntegerInRaw('user_id', $driverIds)->with('driver')->get();
 
         return InstructorEventResource::collection($events);
     }
@@ -30,22 +32,11 @@ class InstructorEventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreInstructorEventRequest $request)
     {
-        $validated = $request->validate([
-            'driver_id' => 'required|exists:users,id',
-            'title'     => 'required|string|max:255',
-            'start'     => 'required|date',
-            'end'       => 'required|date',
-        ]);
-
+        $validated = $request->validated();
         $instructor = $request->user();
-
-        if (!$instructor->drivers()->where('id', $validated['driver_id'])->exists()) {
-            return response()->json(['message' => 'Unauthorized driver'], 403);
-        }
-
-        $driver = User::find($validated['driver_id']);
+        $driver = $instructor->drivers()->findOrFail($validated['driver_id']);
 
         $event = $driver->events()->create([
             'title' => $validated['title'],
@@ -60,20 +51,15 @@ class InstructorEventController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(UpdateInstructorEventRequest $request, Event $event)
     {
-        $instructor = $request->user();
-        if (!$instructor->drivers()->where('id', $event->user_id)->exists()) {
-            return response()->json(['message' => 'Unauthorized event'], 403);
-        }
+        $validated = $request->validated();
 
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'start' => 'required|date',
-            'end'   => 'required|date',
+        $event->update([
+            'title' => $validated['title'],
+            'start' => $validated['start'],
+            'end'   => $validated['end'],
         ]);
-
-        $event->update($validated);
         $event->load('driver');
 
         return response()->json(new InstructorEventResource($event));
