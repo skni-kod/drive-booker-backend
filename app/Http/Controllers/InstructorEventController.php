@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInstructorEventRequest;
 use App\Http\Requests\UpdateInstructorEventRequest;
-use App\Http\Resources\DriverEventResource;
 use App\Http\Resources\InstructorEventResource;
 use App\Models\Event;
-use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -41,7 +39,7 @@ class InstructorEventController extends Controller
         $event = $driver->events()->create([
             'title' => $validated['title'],
             'start' => $validated['start'],
-            'end'   => $validated['end'],
+            'end' => $validated['end'],
         ]);
         $event->load('driver');
 
@@ -58,7 +56,7 @@ class InstructorEventController extends Controller
         $event->update([
             'title' => $validated['title'],
             'start' => $validated['start'],
-            'end'   => $validated['end'],
+            'end' => $validated['end'],
         ]);
         $event->load('driver');
 
@@ -71,7 +69,7 @@ class InstructorEventController extends Controller
     public function destroy(Request $request, Event $event)
     {
         $instructor = $request->user();
-        if (!$instructor->drivers()->where('id', $event->user_id)->exists()) {
+        if (! $instructor->drivers()->where('id', $event->user_id)->exists()) {
             return response()->json(['message' => 'Unauthorized event'], 403);
         }
 
