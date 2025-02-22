@@ -32,13 +32,15 @@ class GoogleAuthController extends Controller
                 ],
             );
 
+            $roles = $authUser->roles->pluck('name')->toArray();
             $token = $authUser->createToken('authToken')->plainTextToken;
 
             $frontendUrl = config('app.frontend_url');
 
             EncryptCookies::except('auth_token');
+            EncryptCookies::except('roles');
 
-            return redirect("{$frontendUrl}/api/login/google")->withCookie(cookie('auth_token', $token, 1, '/', null, false, true));
+            return redirect("{$frontendUrl}/api/login/google")->withCookie(cookie('auth_token', $token, 0, '/', null, false, true))->withCookie(cookie('roles', json_encode($roles, JSON_UNESCAPED_SLASHES), 0, '/', null, false, true));
 
         } catch (Exception $e) {
             return response()->json([
