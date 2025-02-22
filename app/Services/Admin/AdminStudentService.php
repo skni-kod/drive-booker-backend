@@ -2,7 +2,6 @@
 
 namespace App\Services\Admin;
 
-use App\Models\CourseRegistration;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
@@ -12,5 +11,4 @@ class AdminStudentService
     {
         return User::role('driver')->get();
     }
-
 }

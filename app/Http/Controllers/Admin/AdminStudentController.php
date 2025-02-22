@@ -14,5 +14,4 @@ class AdminStudentController extends Controller
     {
         return new UserCollection($this->adminStudentService->index());
     }
-
 }

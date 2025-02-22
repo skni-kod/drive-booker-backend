@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CourseRegistration\AdminCourseRegistrationController;
 use App\Http\Controllers\CourseRegistration\GuestCourseRegistrationController;
 use App\Http\Controllers\CreditCardController;
 use App\Http\Controllers\GoogleAuthController;
