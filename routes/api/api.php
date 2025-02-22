@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseRegistration\AdminCourseRegistrationController;
@@ -19,11 +20,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('user/{user}/credit-card', 'show');
         Route::put('user/{user}/credit-card', 'update');
     });
+});
 
-    // Admin Course Registrations
-    //    Route::prefix('admin')->group(function () {
-    //        Route::resource('courses.registrations', AdminCourseRegistrationController::class)->shallow();
-    //    });
+Route::middleware(['auth:sanctum', 'role:owner'])->group(function () {
+    Route::controller(AdminStudentController::class)->group(function () {
+        Route::get('admin/students', 'index');
+    });
 });
 
 Route::get('/user', function (Request $request) {
