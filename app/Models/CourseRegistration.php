@@ -18,6 +18,7 @@ class CourseRegistration extends Model
         'last_name',
         'email',
         'phone',
+        'status',
     ];
 
     public function course(): BelongsTo

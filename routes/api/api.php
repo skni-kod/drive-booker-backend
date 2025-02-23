@@ -25,6 +25,15 @@ Route::middleware(['auth:sanctum', 'role:owner'])->group(function () {
     Route::controller(AdminStudentController::class)->group(function () {
         Route::get('admin/students', 'index');
     });
+
+    Route::controller(AdminCourseRegistrationController::class)->group(function () {
+        Route::get('admin/course_registrations', 'index');
+    });
+
+    Route::controller(AdminCourseRegistrationController::class)->group(function () {
+        Route::post('admin/course_registrations/{courseRegistration}/accept', 'accept');
+        Route::post('admin/course_registrations/{courseRegistration}/decline', 'decline');
+    });
 });
 
 Route::get('/user', function (Request $request) {

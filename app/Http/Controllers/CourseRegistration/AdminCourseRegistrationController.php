@@ -4,12 +4,11 @@ namespace App\Http\Controllers\CourseRegistration;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CourseRegistration\StoreCourseRegistrationRequest;
-use App\Http\Requests\CourseRegistration\UpdateCourseRegistrationRequest;
 use App\Http\Resources\CourseRegistration\CourseRegistrationCollection;
-use App\Http\Resources\CourseRegistration\CourseRegistrationResource;
 use App\Models\CourseRegistration;
 use App\Services\CourseRegistrationService;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdminCourseRegistrationController extends Controller
 {
@@ -23,13 +22,18 @@ class AdminCourseRegistrationController extends Controller
     public function store(StoreCourseRegistrationRequest $request): JsonResponse
     {
         $this->courseRegistrationService->store($request->getRegistration());
-
-        return response()->json(['message' => 'Użytkownik został zapisany na kurs!'], 201);
+        return response()->json(['message' => 'Użytkownik został zapisany na kurs!'], Response::HTTP_CREATED);
     }
-    //
-    //    public function update(UpdateCourseRegistrationRequest $request, CourseRegistration $courseRegistration): CourseRegistrationResource
-    //    {
-    //        return new CourseRegistrationResource($this->courseRegistrationService->update($request->getCourseRegistration(), $courseRegistration));
-    //    }
+    public function accept(CourseRegistration $courseRegistration): JsonResponse
+    {
+       $this->courseRegistrationService->accept($courseRegistration);
+        return response()->json(['message' => 'Zgloszenie zostalo zaakceptowane i kursant zostal utworzony!'], Response::HTTP_OK);
+    }
+
+    public function decline(CourseRegistration $courseRegistration): JsonResponse
+    {
+        $this->courseRegistrationService->decline($courseRegistration);
+        return response()->json(['message' => 'Zgloszenie zostalo odrzucone!'], Response::HTTP_OK);
+    }
 
 }
