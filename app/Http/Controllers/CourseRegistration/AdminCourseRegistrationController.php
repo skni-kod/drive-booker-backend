@@ -22,18 +22,21 @@ class AdminCourseRegistrationController extends Controller
     public function store(StoreCourseRegistrationRequest $request): JsonResponse
     {
         $this->courseRegistrationService->store($request->getRegistration());
+
         return response()->json(['message' => 'Użytkownik został zapisany na kurs!'], Response::HTTP_CREATED);
     }
+
     public function accept(CourseRegistration $courseRegistration): JsonResponse
     {
-       $this->courseRegistrationService->accept($courseRegistration);
+        $this->courseRegistrationService->accept($courseRegistration);
+
         return response()->json(['message' => 'Zgloszenie zostalo zaakceptowane i kursant zostal utworzony!'], Response::HTTP_OK);
     }
 
     public function decline(CourseRegistration $courseRegistration): JsonResponse
     {
         $this->courseRegistrationService->decline($courseRegistration);
+
         return response()->json(['message' => 'Zgloszenie zostalo odrzucone!'], Response::HTTP_OK);
     }
-
 }
