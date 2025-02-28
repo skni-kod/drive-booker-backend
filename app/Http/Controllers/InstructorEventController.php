@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInstructorEventRequest;
 use App\Http\Requests\UpdateInstructorEventRequest;
-use App\Http\Resources\DriverEventResource;
 use App\Http\Resources\InstructorEventResource;
 use App\Models\Event;
-use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -35,13 +33,14 @@ class InstructorEventController extends Controller
     public function store(StoreInstructorEventRequest $request)
     {
         $validated = $request->validated();
+        $dateRange = $request->getEventDateRange();
         $instructor = $request->user();
         $driver = $instructor->drivers()->findOrFail($validated['driver_id']);
 
         $event = $driver->events()->create([
             'title' => $validated['title'],
-            'start' => $validated['start'],
-            'end'   => $validated['end'],
+            'start' => $dateRange->start,
+            'end'   => $dateRange->end,
         ]);
         $event->load('driver');
 
