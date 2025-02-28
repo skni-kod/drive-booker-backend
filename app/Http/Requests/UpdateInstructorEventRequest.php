@@ -8,17 +8,18 @@ class UpdateInstructorEventRequest extends FormRequest
 {
     public function authorize(): bool
     {
-            $instructor = $this->user();
-            $event = $this->route('event');
+        $instructor = $this->user();
+        $event = $this->route('event');
 
-            return $instructor && $instructor->drivers()->where('id', $event->user_id)->exists();
+        return $instructor && $instructor->drivers()->where('id', $event->user_id)->exists();
     }
+
     public function rules(): array
     {
         return [
             'title' => 'required|string|max:255',
             'start' => 'required|date',
-            'end'   => 'required|date|after:start',
+            'end' => 'required|date|after:start',
         ];
     }
 }
