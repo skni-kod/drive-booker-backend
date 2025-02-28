@@ -40,7 +40,7 @@ class InstructorEventController extends Controller
         $event = $driver->events()->create([
             'title' => $validated['title'],
             'start' => $dateRange->start,
-            'end'   => $dateRange->end,
+            'end' => $dateRange->end,
         ]);
         $event->load('driver');
 
@@ -57,7 +57,7 @@ class InstructorEventController extends Controller
         $event->update([
             'title' => $validated['title'],
             'start' => $validated['start'],
-            'end'   => $validated['end'],
+            'end' => $validated['end'],
         ]);
         $event->load('driver');
 
@@ -70,7 +70,7 @@ class InstructorEventController extends Controller
     public function destroy(Request $request, Event $event)
     {
         $instructor = $request->user();
-        if (!$instructor->drivers()->where('id', $event->user_id)->exists()) {
+        if (! $instructor->drivers()->where('id', $event->user_id)->exists()) {
             return response()->json(['message' => 'Unauthorized event'], 403);
         }
 

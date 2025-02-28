@@ -11,7 +11,7 @@ class Event extends Model
 
     protected $casts = [
         'start' => 'datetime',
-        'end'   => 'datetime',
+        'end' => 'datetime',
     ];
 
     public function driver(): BelongsTo
