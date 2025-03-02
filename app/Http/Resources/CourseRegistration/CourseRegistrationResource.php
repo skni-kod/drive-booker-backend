@@ -5,7 +5,7 @@ namespace App\Http\Resources\CourseRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GuestCourseRegistrationResource extends JsonResource
+class CourseRegistrationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

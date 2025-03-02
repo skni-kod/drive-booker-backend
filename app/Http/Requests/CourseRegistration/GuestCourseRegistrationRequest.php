@@ -24,28 +24,10 @@ class GuestCourseRegistrationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => [
-                'required',
-                'string',
-                'min:2',
-                'max:30',
-                'regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
-            ],
-            'last_name' => [
-                'required',
-                'string',
-                'min:2',
-                'max:30',
-                'regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
-            ],
-            'email' => [
-                'required',
-                'email',
-            ],
-            'phone' => [
-                'required',
-                'regex:/^\+?\d{9,15}$/',
-            ],
+            'name' => 'required|string|min:2|max:30|regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
+            'last_name' => 'required|string|min:2|max:30|regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|regex:/^\+?\d{9,15}$/',
         ];
     }
 

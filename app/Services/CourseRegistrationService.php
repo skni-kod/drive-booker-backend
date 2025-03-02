@@ -17,7 +17,7 @@ class CourseRegistrationService
         return CourseRegistration::all();
     }
 
-    public function store(CreateCourseRegistration $data): void
+    public function store(CreateCourseRegistration $data): CourseRegistration
     {
         $user = User::find($data->getUserId());
         $courseId = $data->getCourseId();
@@ -27,9 +27,10 @@ class CourseRegistrationService
         }
 
         $user->courses()->attach($courseId);
+        return CourseRegistration::where('user_id', $user->id)->where('course_id', $courseId)->first();
     }
 
-    public function accept(CourseRegistration $courseRegistration): User
+    public function accept(CourseRegistration $courseRegistration): CourseRegistration
     {
         $user = User::create([
             'name' => $courseRegistration->name,
@@ -40,16 +41,17 @@ class CourseRegistrationService
         ]);
 
         $user->assignRole('driver');
-        $courseRegistration->update(['status' => RegistrationStatus::ACCEPTED->value]);
+        $courseRegistration->update(['status' => RegistrationStatus::ACCEPTED->value, 'user_id' => $user->id,]);
 
         // do wyslania maila z haslem
         //Mail::to($user->email)->send(new RegistrationApproved($user, $password));
 
-        return $user;
+        return $courseRegistration;
     }
 
-    public function decline(CourseRegistration $courseRegistration): void
+    public function decline(CourseRegistration $courseRegistration): CourseRegistration
     {
         $courseRegistration->update(['status' => RegistrationStatus::REJECTED->value]);
+        return $courseRegistration;
     }
 }
