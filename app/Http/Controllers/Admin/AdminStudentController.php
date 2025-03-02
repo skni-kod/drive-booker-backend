@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 class AdminStudentController extends Controller
 {
     public function __construct(private readonly AdminStudentService $adminStudentService) {}
+
     public function index(Request $request): UserCollection
     {
         return new UserCollection($this->adminStudentService->index($request)->paginate(self::PER_PAGE));

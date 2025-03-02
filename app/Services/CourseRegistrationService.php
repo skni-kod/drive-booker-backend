@@ -27,6 +27,7 @@ class CourseRegistrationService
         }
 
         $user->courses()->attach($courseId);
+
         return CourseRegistration::where('user_id', $user->id)->where('course_id', $courseId)->first();
     }
 
@@ -41,7 +42,7 @@ class CourseRegistrationService
         ]);
 
         $user->assignRole('driver');
-        $courseRegistration->update(['status' => RegistrationStatus::ACCEPTED->value, 'user_id' => $user->id,]);
+        $courseRegistration->update(['status' => RegistrationStatus::ACCEPTED->value, 'user_id' => $user->id]);
 
         // do wyslania maila z haslem
         //Mail::to($user->email)->send(new RegistrationApproved($user, $password));
@@ -52,6 +53,7 @@ class CourseRegistrationService
     public function decline(CourseRegistration $courseRegistration): CourseRegistration
     {
         $courseRegistration->update(['status' => RegistrationStatus::REJECTED->value]);
+
         return $courseRegistration;
     }
 }

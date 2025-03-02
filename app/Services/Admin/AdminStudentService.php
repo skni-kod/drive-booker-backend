@@ -11,7 +11,7 @@ class AdminStudentService
     public function index(Request $request): Builder
     {
 
-        $user =  User::role('driver');
+        $user = User::role('driver');
 
         if ($request->has('search')) {
             $search = strtolower($request->input('search'));
@@ -20,6 +20,7 @@ class AdminStudentService
                     ->orWhereRaw('LOWER(last_name) LIKE ?', ["%{$search}%"]);
             });
         }
+
         return $user;
     }
 }
