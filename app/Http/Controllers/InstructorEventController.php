@@ -22,6 +22,7 @@ class InstructorEventController extends Controller
     {
         $instructor = $request->user();
         $events = $this->eventService->getInstructorEvents($instructor);
+
         return InstructorEventResource::collection($events);
     }
 
@@ -43,16 +44,19 @@ class InstructorEventController extends Controller
     public function update(UpdateInstructorEventRequest $request, Event $event)
     {
         $eventDetails = $request->getEventDetails();
+
         return new InstructorEventResource($this->eventService->updateEvent($event, $eventDetails));
     }
 
     /**
      * Remove the specified resource from storage.
+     *
      * @throws Exception
      */
     public function destroy(Request $request, Event $event)
     {
         $this->eventService->deleteEvent($request->user(), $event);
+
         return response()->noContent();
     }
 }

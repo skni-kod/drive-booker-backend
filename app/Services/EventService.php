@@ -13,8 +13,10 @@ class EventService
     public function getInstructorEvents(User $instructor): Collection
     {
         $driverIds = $instructor->drivers()->pluck('id');
+
         return Event::whereIntegerInRaw('user_id', $driverIds)->with('driver')->get();
     }
+
     public function createEvent(User $instructor, EventDetails $eventDetails, int $driverId): Event
     {
         // Retrieve the driver and handle not-found logic
@@ -22,6 +24,7 @@ class EventService
 
         $event = $driver->events()->create($eventDetails->toArray());
         $event->load('driver');
+
         return $event;
     }
 
@@ -29,6 +32,7 @@ class EventService
     {
         $event->update($eventDetails->toArray());
         $event->load('driver');
+
         return $event;
     }
 
@@ -37,8 +41,8 @@ class EventService
      */
     public function deleteEvent(User $instructor, Event $event): void
     {
-        if (!$instructor->drivers()->where('id', $event->user_id)->exists()) {
-            throw new Exception("Unauthorized action");
+        if (! $instructor->drivers()->where('id', $event->user_id)->exists()) {
+            throw new Exception('Unauthorized action');
         }
         $event->delete();
 

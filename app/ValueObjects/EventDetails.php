@@ -8,7 +8,9 @@ use InvalidArgumentException;
 readonly class EventDetails
 {
     public DateTimeImmutable $start;
+
     public DateTimeImmutable $end;
+
     public string $title;
 
     public function __construct(string $title, DateTimeImmutable $startDate, DateTimeImmutable $endDate)
