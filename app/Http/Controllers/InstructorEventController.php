@@ -6,12 +6,14 @@ use App\Http\Requests\StoreInstructorEventRequest;
 use App\Http\Requests\UpdateInstructorEventRequest;
 use App\Http\Resources\InstructorEventResource;
 use App\Models\Event;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Services\EventService;
+use Exception;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class InstructorEventController extends Controller
 {
-    use AuthorizesRequests;
+    public function __construct(protected EventService $eventService) {}
 
     /**
      * Display a listing of the resource.
@@ -19,11 +21,7 @@ class InstructorEventController extends Controller
     public function index(Request $request)
     {
         $instructor = $request->user();
-
-        $driverIds = $instructor->drivers->pluck('id');
-
-        $events = Event::whereIntegerInRaw('user_id', $driverIds)->with('driver')->get();
-
+        $events = $this->eventService->getInstructorEvents($instructor);
         return InstructorEventResource::collection($events);
     }
 
@@ -32,19 +30,11 @@ class InstructorEventController extends Controller
      */
     public function store(StoreInstructorEventRequest $request)
     {
-        $validated = $request->validated();
-        $dateRange = $request->getEventDateRange();
         $instructor = $request->user();
-        $driver = $instructor->drivers()->findOrFail($validated['driver_id']);
+        $eventDetails = $request->getEventDetails();
+        $driverId = $request->validated('driver_id');
 
-        $event = $driver->events()->create([
-            'title' => $validated['title'],
-            'start' => $dateRange->start,
-            'end' => $dateRange->end,
-        ]);
-        $event->load('driver');
-
-        return response()->json(new InstructorEventResource($event), 201);
+        return response()->json(new InstructorEventResource($this->eventService->createEvent($instructor, $eventDetails, $driverId)), Response::HTTP_CREATED);
     }
 
     /**
@@ -52,32 +42,17 @@ class InstructorEventController extends Controller
      */
     public function update(UpdateInstructorEventRequest $request, Event $event)
     {
-        $validated = $request->validated();
-
-        $event->update([
-            'title' => $validated['title'],
-            'start' => $validated['start'],
-            'end' => $validated['end'],
-        ]);
-        $event->load('driver');
-
-        return response()->json(new InstructorEventResource($event));
+        $eventDetails = $request->getEventDetails();
+        return new InstructorEventResource($this->eventService->updateEvent($event, $eventDetails));
     }
 
     /**
      * Remove the specified resource from storage.
+     * @throws Exception
      */
     public function destroy(Request $request, Event $event)
     {
-        $instructor = $request->user();
-        if (! $instructor->drivers()->where('id', $event->user_id)->exists()) {
-            return response()->json(['message' => 'Unauthorized event'], 403);
-        }
-
-        $this->authorize('delete', $event);
-
-        $event->delete();
-
+        $this->eventService->deleteEvent($request->user(), $event);
         return response()->noContent();
     }
 }

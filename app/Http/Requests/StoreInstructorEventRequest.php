@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\ValueObjects\EventDateRange;
+use App\ValueObjects\EventDetails;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreInstructorEventRequest extends FormRequest
@@ -28,8 +28,11 @@ class StoreInstructorEventRequest extends FormRequest
         ];
     }
 
-    public function getEventDateRange(): EventDateRange
+    /**
+     * @throws \DateMalformedStringException
+     */
+    public function getEventDetails(): EventDetails
     {
-        return EventDateRange::fromArray($this->only(['start', 'end']));
+        return EventDetails::fromArray($this->validated());
     }
 }

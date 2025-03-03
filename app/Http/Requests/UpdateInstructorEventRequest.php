@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\ValueObjects\EventDetails;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateInstructorEventRequest extends FormRequest
@@ -21,5 +22,13 @@ class UpdateInstructorEventRequest extends FormRequest
             'start' => 'required|date',
             'end' => 'required|date|after:start',
         ];
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     */
+    public function getEventDetails(): EventDetails
+    {
+        return EventDetails::fromArray($this->validated());
     }
 }
