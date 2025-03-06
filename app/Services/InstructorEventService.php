@@ -8,7 +8,7 @@ use App\ValueObjects\EventDetails;
 use Exception;
 use Illuminate\Support\Collection;
 
-class EventService
+class InstructorEventService
 {
     public function getInstructorEvents(User $instructor): Collection
     {

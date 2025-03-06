@@ -6,14 +6,14 @@ use App\Http\Requests\StoreInstructorEventRequest;
 use App\Http\Requests\UpdateInstructorEventRequest;
 use App\Http\Resources\InstructorEventResource;
 use App\Models\Event;
-use App\Services\EventService;
+use App\Services\InstructorEventService;
 use Exception;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class InstructorEventController extends Controller
 {
-    public function __construct(protected EventService $eventService) {}
+    public function __construct(protected InstructorEventService $eventService) {}
 
     /**
      * Display a listing of the resource.

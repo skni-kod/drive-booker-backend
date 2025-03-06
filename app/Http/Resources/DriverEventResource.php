@@ -19,6 +19,7 @@ class DriverEventResource extends JsonResource
             'title' => $this->title,
             'start' => $this->start,
             'end' => $this->end,
+            'status' => $this->status,
         ];
     }
 }
