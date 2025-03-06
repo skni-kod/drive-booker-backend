@@ -16,6 +16,7 @@ class AdminEventService
     {
         $event = Event::findOrFail($id);
         $event->update(['status' => EventsEnum::ACCEPTED->value]);
+
         return $event;
     }
 
