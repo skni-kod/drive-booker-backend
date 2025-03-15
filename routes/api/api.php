@@ -38,7 +38,7 @@ Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallba
 Route::middleware(['auth:sanctum', 'role:owner'])->group(function () {
     Route::controller(AdminEventController::class)->group(function () {
         Route::get('admin/events/pending', 'getPendingEvents');
-        Route::get('admin/events/stream', 'streamPendingEvents');
+        Route::get('admin/events/stream', 'streamPendingEvents')->middleware('stream.cors');
         Route::post('admin/events/{id}/accept', 'acceptEvent');
         Route::post('admin/events/{id}/reject', 'rejectEvent');
     });
