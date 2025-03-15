@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminEventController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CreditCardController;
@@ -33,13 +32,3 @@ Route::post('register', [AuthController::class, 'register']);
 
 Route::get('/google/redirect', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-
-//TODO separate file for admin routes
-Route::middleware(['auth:sanctum', 'role:owner'])->group(function () {
-    Route::controller(AdminEventController::class)->group(function () {
-        Route::get('admin/events/pending', 'getPendingEvents');
-        Route::get('admin/events/stream', 'streamPendingEvents')->middleware('stream.cors');
-        Route::post('admin/events/{id}/accept', 'acceptEvent');
-        Route::post('admin/events/{id}/reject', 'rejectEvent');
-    });
-});
