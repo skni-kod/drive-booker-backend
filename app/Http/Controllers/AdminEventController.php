@@ -18,12 +18,14 @@ class AdminEventController extends Controller
     public function acceptEvent($id)
     {
         $event = $this->eventService->acceptEvent($id);
+
         return response()->json(['message' => 'Event accepted'], Response::HTTP_OK);
     }
 
     public function rejectEvent($id)
     {
         $this->eventService->rejectEvent($id);
+
         return response()->json(['message' => 'Event rejected'], Response::HTTP_OK);
     }
 
@@ -31,5 +33,4 @@ class AdminEventController extends Controller
     {
         return $this->streamEventService->streamPendingEvents();
     }
-
 }
