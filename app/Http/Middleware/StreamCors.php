@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class StreamCors
 {
-
     public function handle($request, Closure $next)
     {
         $response = $next($request);
