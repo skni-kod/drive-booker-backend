@@ -20,7 +20,7 @@ class AdminEventController extends Controller
     {
         $this->eventService->acceptEvent($event);
 
-//        return new AdminEventResource($event);
+        //        return new AdminEventResource($event);
         return response()->json(['message' => 'Event accepted'], Response::HTTP_OK);
     }
 
@@ -28,7 +28,7 @@ class AdminEventController extends Controller
     {
         $this->eventService->rejectEvent($event);
 
-//        return new AdminEventResource($event);
+        //        return new AdminEventResource($event);
         return response()->json(['message' => 'Event rejected'], Response::HTTP_OK);
     }
 }

@@ -18,6 +18,7 @@ class AdminEventService
     public function acceptEvent(Event $event): Event
     {
         $event->update(['status' => EventsEnum::ACCEPTED->value]);
+
         return $event;
     }
 
