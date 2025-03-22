@@ -9,7 +9,6 @@ use App\Models\Event;
 use App\Services\InstructorEventService;
 use Exception;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class InstructorEventController extends Controller
 {
@@ -35,7 +34,7 @@ class InstructorEventController extends Controller
         $eventDetails = $request->getEventDetails();
         $driverId = $request->validated('driver_id');
 
-        return response()->json(new InstructorEventResource($this->eventService->createEvent($instructor, $eventDetails, $driverId)), Response::HTTP_CREATED);
+        return new InstructorEventResource($this->eventService->createEvent($instructor, $eventDetails, $driverId));
     }
 
     /**

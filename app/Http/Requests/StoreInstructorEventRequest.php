@@ -21,7 +21,7 @@ class StoreInstructorEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'driver_id' => 'required|integer|exists:users,id',
+            'driver_id' => 'required|integer|exists:users,id|role:driver',
             'title' => 'required|string|max:255',
             'start' => 'required|date',
             'end' => 'required|date|after:start',

@@ -9,8 +9,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:sanctum', 'role:owner'
     //define admin/owner routes
     Route::controller(AdminEventController::class)->group(function () {
         Route::get('events/pending', 'getPendingEvents');
-        Route::get('events/stream', 'streamPendingEvents')->middleware('stream.cors');
-        Route::post('events/{id}/accept', 'acceptEvent');
-        Route::post('events/{id}/reject', 'rejectEvent');
+        Route::post('events/{event}/accept', 'acceptEvent');
+        Route::post('events/{event}/reject', 'rejectEvent');
     });
 });

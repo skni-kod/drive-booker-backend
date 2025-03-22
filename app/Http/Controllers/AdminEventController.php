@@ -2,35 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AdminEventResource;
+use App\Models\Event;
 use App\Services\AdminEventService;
-use App\Services\StreamEventService;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminEventController extends Controller
 {
-    public function __construct(protected AdminEventService $eventService, protected StreamEventService $streamEventService) {}
+    public function __construct(protected AdminEventService $eventService) {}
 
     public function getPendingEvents()
     {
-        return response()->json($this->eventService->getPendingEvents(), Response::HTTP_OK);
+        return AdminEventResource::collection($this->eventService->getPendingEvents());
     }
 
-    public function acceptEvent($id)
+    public function acceptEvent(Event $event)
     {
-        $event = $this->eventService->acceptEvent($id);
+        $this->eventService->acceptEvent($event);
 
+//        return new AdminEventResource($event);
         return response()->json(['message' => 'Event accepted'], Response::HTTP_OK);
     }
 
-    public function rejectEvent($id)
+    public function rejectEvent(Event $event)
     {
-        $this->eventService->rejectEvent($id);
+        $this->eventService->rejectEvent($event);
 
+//        return new AdminEventResource($event);
         return response()->json(['message' => 'Event rejected'], Response::HTTP_OK);
-    }
-
-    public function streamPendingEvents()
-    {
-        return $this->streamEventService->streamPendingEvents();
     }
 }

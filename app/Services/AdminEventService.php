@@ -9,20 +9,20 @@ class AdminEventService
 {
     public function getPendingEvents()
     {
-        return Event::where('status', EventsEnum::PENDING->value)->get();
+        return Event::where('status', EventsEnum::PENDING->value)
+            ->orderBy('start', 'asc')
+            ->with('driver')
+            ->paginate(10);
     }
 
-    public function acceptEvent($id): Event
+    public function acceptEvent(Event $event): Event
     {
-        $event = Event::findOrFail($id);
         $event->update(['status' => EventsEnum::ACCEPTED->value]);
-
         return $event;
     }
 
-    public function rejectEvent($id): void
+    public function rejectEvent(Event $event): void
     {
-        $event = Event::findOrFail($id);
         $event->update(['status' => EventsEnum::REJECTED]);
     }
 }
