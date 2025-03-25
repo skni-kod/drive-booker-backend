@@ -12,16 +12,17 @@ class StoreInstructorEventRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $driverId = $this->input('driver_id');
+        $driver_id = $this->input('driver_id');
         $instructor = $this->user();
 
-        return $instructor && $instructor->drivers()->where('id', $driverId)->exists();
+        return $instructor && $instructor->instructorStudents()->where('id', $driver_id)->exists();
     }
+
 
     public function rules(): array
     {
         return [
-            'driver_id' => 'required|integer|exists:users,id|role:driver',
+            'driver_id' => 'required|integer|exists:users,id,role,driver',
             'title' => 'required|string|max:255',
             'start' => 'required|date',
             'end' => 'required|date|after:start',

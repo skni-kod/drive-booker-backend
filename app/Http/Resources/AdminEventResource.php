@@ -20,6 +20,7 @@ class AdminEventResource extends JsonResource
             'start' => $this->start,
             'end' => $this->end,
             'driver' => new DriverResource($this->whenLoaded('driver')),
+            'instructor' => new InstructorResource($this->whenLoaded('instructor')),
             'status' => $this->status,
         ];
     }

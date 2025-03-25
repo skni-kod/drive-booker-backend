@@ -12,7 +12,7 @@ class UpdateInstructorEventRequest extends FormRequest
         $instructor = $this->user();
         $event = $this->route('event');
 
-        return $instructor && $instructor->drivers()->where('id', $event->user_id)->exists();
+        return $instructor && $instructor->instructorStudents()->where('id', $event->driver_id)->exists();
     }
 
     public function rules(): array

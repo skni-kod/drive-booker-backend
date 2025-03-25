@@ -9,11 +9,11 @@ class EventPolicy
 {
     public function update(User $user, Event $event): bool
     {
-        return $user->drivers()->where('id', $event->user_id)->exists();
+        return $user->instructorStudents()->where('id', $event->id)->exists();
     }
 
     public function delete(User $user, Event $event): bool
     {
-        return $user->drivers()->where('id', $event->user_id)->exists();
+        return $user->instructorStudents()->where('id', $event->id)->exists();
     }
 }

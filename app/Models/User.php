@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function events(): HasMany
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class, 'driver_id');
     }
 
     public function course(): BelongsTo
@@ -75,12 +75,7 @@ class User extends Authenticatable
         return $this->belongsTo(Course::class);
     }
 
-    public function instructor(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'instructor_id');
-    }
-
-    public function drivers(): HasMany
+    public function instructorStudents(): HasMany
     {
         return $this->hasMany(User::class, 'instructor_id');
     }

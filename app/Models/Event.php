@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Event extends Model
 {
-    protected $fillable = ['title', 'start', 'end', 'user_id', 'status'];
+    protected $fillable = ['title', 'start', 'end', 'driver_id', 'instructor_id', 'status'];
 
     protected $casts = [
         'start' => 'datetime',
@@ -19,6 +19,11 @@ class Event extends Model
 
     public function driver(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'driver_id');
+    }
+
+    public function instructor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'instructor_id');
     }
 }

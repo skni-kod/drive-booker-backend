@@ -11,8 +11,8 @@ class AdminEventService
     {
         return Event::where('status', EventsEnum::PENDING->value)
             ->orderBy('start', 'asc')
-            ->with('driver')
-            ->paginate(10);
+            ->with(['driver', 'instructor'])
+            ->simplePaginate(10);
     }
 
     public function acceptEvent(Event $event): Event
@@ -24,6 +24,6 @@ class AdminEventService
 
     public function rejectEvent(Event $event): void
     {
-        $event->update(['status' => EventsEnum::REJECTED]);
+        $event->update(['status' => EventsEnum::REJECTED->value]);
     }
 }

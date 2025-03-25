@@ -2,51 +2,37 @@
 
 namespace Database\Seeders;
 
-use App\Models\Event;
-use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class EventSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        // Fetch all users
-        $users = User::all();
-
-        // Sample events
-        $events = [
+        DB::table('events')->insert([
             [
-                'title' => 'Morning Meeting',
-                'start' => '2025-02-07 09:00:00',
-                'end' => '2025-02-07 10:00:00',
+                'title' => 'Driving Lesson 1',
+                'start' => date('Y-m-d H:i:s', strtotime('+1 day')),
+                'end' => date('Y-m-d H:i:s', strtotime('+1 day +2 hours')),
+                'driver_id' => 2, // Replace with an existing user ID
+                'instructor_id' => 1, // Replace with an existing instructor ID
+                'status' => 'pending',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'title' => 'Lunch Break',
-                'start' => '2025-03-13 12:00:00',
-                'end' => '2025-03-13 13:00:00',
+                'title' => 'Driving Test',
+                'start' => date('Y-m-d H:i:s', strtotime('+3 days')),
+                'end' => date('Y-m-d H:i:s', strtotime('+3 days +1 hour')),
+                'driver_id' => 2, // Replace with an existing user ID
+                'instructor_id' => 1, // Replace with an existing instructor ID
+                'status' => 'pending',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
-            [
-                'title' => 'Afternoon Workshop',
-                'start' => '2025-04-06 14:00:00',
-                'end' => '2025-04-06 16:00:00',
-            ],
-            [
-                'title' => 'All-Day Event',
-                'start' => '2025-03-09 00:00:00',
-                'end' => '2025-03-09 23:59:59',
-            ],
-            [
-                'title' => 'Evening Networking',
-                'start' => '2025-04-11 18:30:00',
-                'end' => '2025-04-11 20:00:00',
-            ],
-        ];
-
-        // Loop through each user and assign the events
-        foreach ($users as $user) {
-            foreach ($events as $event) {
-                Event::create(array_merge($event, ['user_id' => $user->id]));
-            }
-        }
+        ]);
     }
 }

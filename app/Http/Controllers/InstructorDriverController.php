@@ -13,7 +13,7 @@ class InstructorDriverController extends Controller
     public function index(Request $request)
     {
         $instructor = $request->user();
-        $drivers = $instructor->drivers()->get();
+        $drivers = $instructor->instructorStudents()->get();
 
         return DriverResource::collection($drivers);
     }

@@ -12,17 +12,21 @@ class InstructorEventService
 {
     public function getInstructorEvents(User $instructor): Collection
     {
-        $driverIds = $instructor->drivers()->pluck('id');
+        $driverIds = $instructor->instructorStudents()->pluck('id');
 
-        return Event::whereIntegerInRaw('user_id', $driverIds)->with('driver')->get();
+        return Event::whereIntegerInRaw('driver_id', $driverIds)->with('driver')->get();
     }
 
     public function createEvent(User $instructor, EventDetails $eventDetails, int $driverId): Event
     {
         // Retrieve the driver and handle not-found logic
-        $driver = $instructor->drivers()->findOrFail($driverId);
+        $driver = $instructor->instructorStudents()->findOrFail($driverId);
 
-        $event = $driver->events()->create($eventDetails->toArray());
+        $eventData = $eventDetails->toArray();
+        $eventData['instructor_id'] = $instructor->id; // Assign instructor ID
+        $eventData['driver_id'] = $driverId;
+
+        $event = $driver->events()->create($eventData);
         $event->load('driver');
 
         return $event;
@@ -41,7 +45,7 @@ class InstructorEventService
      */
     public function deleteEvent(User $instructor, Event $event): void
     {
-        if (! $instructor->drivers()->where('id', $event->user_id)->exists()) {
+        if (! $instructor->instructorStudents()->where('id', $event->driver_id)->exists()) {
             throw new Exception('Unauthorized action');
         }
         $event->delete();
