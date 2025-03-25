@@ -18,7 +18,6 @@ class StoreInstructorEventRequest extends FormRequest
         return $instructor && $instructor->instructorStudents()->where('id', $driver_id)->exists();
     }
 
-
     public function rules(): array
     {
         return [
