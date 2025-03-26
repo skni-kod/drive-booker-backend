@@ -9,9 +9,7 @@ use App\Http\Resources\CourseRegistration\CourseRegistrationResource;
 use App\Http\Resources\CourseUserResource;
 use App\Models\CourseRegistration;
 use App\Services\CourseRegistrationService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class AdminCourseRegistrationController extends Controller
 {

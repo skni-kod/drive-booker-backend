@@ -12,10 +12,11 @@ use Spatie\QueryBuilder\QueryBuilder;
 class AdminStudentController extends Controller
 {
     public function __construct() {}
+
     public function index(): UserCollection
     {
         return new UserCollection(QueryBuilder::for(User::role('driver'))
-            ->allowedFilters(AllowedFilter::custom('search', new FullNameFilter()))
+            ->allowedFilters(AllowedFilter::custom('search', new FullNameFilter))
             ->paginate(self::PER_PAGE));
     }
 }
