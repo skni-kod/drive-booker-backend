@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\FullNameFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
-use App\Services\Admin\AdminStudentService;
-use Illuminate\Http\Request;
+use App\Models\User;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AdminStudentController extends Controller
 {
-    public function __construct(private readonly AdminStudentService $adminStudentService) {}
-
-    public function index(Request $request): UserCollection
+    public function __construct() {}
+    public function index(): UserCollection
     {
-        return new UserCollection($this->adminStudentService->index($request)->paginate(self::PER_PAGE));
+        return new UserCollection(QueryBuilder::for(User::role('driver'))
+            ->allowedFilters(AllowedFilter::custom('search', new FullNameFilter()))
+            ->paginate(self::PER_PAGE));
     }
 }

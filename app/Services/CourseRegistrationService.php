@@ -6,15 +6,16 @@ use App\Enums\RegistrationStatus;
 use App\Models\CourseRegistration;
 use App\Models\User;
 use App\ValueObjects\CreateCourseRegistration;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class CourseRegistrationService
 {
-    public function index(): Collection
+    public function index(Request $request): Builder
     {
-        return CourseRegistration::all();
+        return CourseRegistration::query();
     }
 
     public function store(CreateCourseRegistration $data): CourseRegistration
