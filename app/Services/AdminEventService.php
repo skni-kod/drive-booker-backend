@@ -12,7 +12,7 @@ class AdminEventService
         return Event::where('status', EventsEnum::PENDING->value)
             ->orderBy('start', 'asc')
             ->with(['driver', 'instructor'])
-            ->simplePaginate(10);
+            ->paginate(10);
     }
 
     public function acceptEvent(Event $event): Event
