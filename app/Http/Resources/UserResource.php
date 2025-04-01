@@ -40,10 +40,10 @@ class UserResource extends JsonResource
         }
         try {
             $phone = new PhoneNumber($this->phone_number, $this->phone_country);
+
             return $phone->formatNational();
         } catch (\Throwable $e) {
             return $this->phone_number;
         }
     }
-
 }

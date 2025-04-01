@@ -13,6 +13,7 @@ class GuestCourseRegistrationService
         $phone = new PhoneNumber($data->getPhone(), $data->getPhoneCountry());
         $dataArray = $data->toArray();
         $dataArray['phone'] = $phone->formatE164();
+
         return CourseRegistration::create($dataArray);
     }
 }
