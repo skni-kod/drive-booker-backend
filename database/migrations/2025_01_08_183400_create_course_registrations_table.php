@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name', 30);
             $table->string('email')->unique();
             $table->string('phone', 15);
+            $table->string('phone_country', 2)->nullable();
             $table->enum('status',
                 RegistrationStatus::values())->default(RegistrationStatus::PENDING->value);
             $table->timestamps();

@@ -21,6 +21,7 @@ class CourseRegistrationResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'phone_country' => $this->phone_country,
             'status' => $this->status,
             'created_at' => $this->created_at?->toDateTimeString(),
             'updated_at' => $this->updated_at?->toDateTimeString(),

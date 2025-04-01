@@ -13,6 +13,7 @@ final readonly class StoreGuestCourseRegistration implements Arrayable
         private string $last_name,
         private string $email,
         private string $phone,
+        private string $phone_country
     ) {}
 
     public function getCourseId(): int
@@ -40,6 +41,11 @@ final readonly class StoreGuestCourseRegistration implements Arrayable
         return $this->phone;
     }
 
+    public function getPhoneCountry(): string
+    {
+        return $this->phone_country;
+    }
+
     public function toArray(): array
     {
         return [
@@ -48,6 +54,7 @@ final readonly class StoreGuestCourseRegistration implements Arrayable
             'last_name' => $this->getLast_Name(),
             'email' => $this->getEmail(),
             'phone' => $this->getPhone(),
+            'phone_country' => $this->getPhoneCountry(),
             'status' => RegistrationStatus::PENDING->value,
         ];
     }

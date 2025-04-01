@@ -27,7 +27,8 @@ class GuestCourseRegistrationRequest extends FormRequest
             'name' => 'required|string|min:2|max:30|regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
             'last_name' => 'required|string|min:2|max:30|regex:/^[a-zA-ZÀ-ž\s\'-]+$/',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|regex:/^\+?\d{9,15}$/',
+            'phone' => 'phone:PL,INTERNATIONAL',
+            'phone_country' => 'required_with:phone_number|string|size:2',
         ];
     }
 
@@ -39,6 +40,7 @@ class GuestCourseRegistrationRequest extends FormRequest
             $this->get('last_name'),
             $this->get('email'),
             $this->get('phone'),
+            $this->get('phone_country')
         );
     }
 }

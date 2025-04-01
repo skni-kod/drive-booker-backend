@@ -39,6 +39,7 @@ class CourseRegistrationService
             'last_name' => $courseRegistration->last_name,
             'email' => $courseRegistration->email,
             'phone_number' => $courseRegistration->phone,
+            'phone_country' => $courseRegistration->phone_country,
             'password' => Hash::make(Str::random(12)),
         ]);
 
