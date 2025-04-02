@@ -14,7 +14,6 @@ class InstructorAvailability extends Model
         'end_time' => 'datetime',
     ];
 
-
     public function instructor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'instructor_id');

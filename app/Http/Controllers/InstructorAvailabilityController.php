@@ -35,5 +35,4 @@ class InstructorAvailabilityController extends Controller
             $validated['availability']
         ));
     }
-
 }
