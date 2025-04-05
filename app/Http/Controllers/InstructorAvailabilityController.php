@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 
 class InstructorAvailabilityController extends Controller
 {
-    public function __construct(protected InstructorAvailabilityService $availabilityService) {}
+    public function __construct(protected InstructorAvailabilityService $availabilityService)
+    {
+    }
 
     public function index(Request $request): InstructorAvailabilityCollection
     {
@@ -28,10 +30,8 @@ class InstructorAvailabilityController extends Controller
     public function store(StoreInstructorAvailabilityRequest $request): InstructorStoreAvailabilityResource
     {
         $validated = $request->validated();
-        $instructor = $request->user();
 
         return new InstructorStoreAvailabilityResource($this->availabilityService->storeAvailability(
-            $instructor,
             $validated['availability']
         ));
     }

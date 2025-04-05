@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Enums\StatusEnum;
 use App\Models\InstructorAvailability;
-use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -12,35 +12,37 @@ class InstructorAvailabilityService
     /**
      * @throws Exception
      */
-    public function storeAvailability(User $instructor, array $availabilities): array
+    public function storeAvailability(array $availabilities): array
     {
-        $savedSlots = [];
 
-        DB::beginTransaction();
-
-        try {
-            InstructorAvailability::where('instructor_id', $instructor->id)->delete(); //delete old availability
+        return DB::transaction(function () use ($availabilities) {
+            $savedSlots = [];
+            InstructorAvailability::where('instructor_id', auth()->id())->where(StatusEnum::AVAILABLE->value)->delete(); //delete old availability
             foreach ($availabilities as $slot) {
                 $start = $slot['start_time'];
                 $end = $slot['end_time'];
 
                 $savedSlots[] = InstructorAvailability::create([
-                    'instructor_id' => $instructor->id,
+                    'instructor_id' => auth()->id(),
                     'start_time' => $start,
                     'end_time' => $end,
+                    'status' => StatusEnum::AVAILABLE->value
                 ]);
             }
-
-            DB::commit();
 
             return [
                 'message' => 'Availability processed.',
                 'saved' => $savedSlots,
             ];
+        });
+    }
 
-        } catch (Exception $e) {
-            DB::rollBack();
-            throw $e;
-        }
+    public function getInstructorAvailabilities($instructorId)
+    {
+        return InstructorAvailability::where('instructor_id', $instructorId)
+            ->where('status', StatusEnum::AVAILABLE->value)
+            ->where('end_time', '>', now())
+            ->orderBy('start_time')
+            ->get();
     }
 }

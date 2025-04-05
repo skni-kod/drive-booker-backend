@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InstructorAvailability extends Model
 {
-    protected $fillable = ['start_time', 'end_time', 'instructor_id'];
+    protected $fillable = ['instructor_id', 'start_time', 'end_time', 'status'];
 
     protected $casts = [
         'start_time' => 'datetime',
