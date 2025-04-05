@@ -26,7 +26,7 @@ class InstructorAvailabilityService
                     'instructor_id' => auth()->id(),
                     'start_time' => $start,
                     'end_time' => $end,
-                    'status' => StatusEnum::AVAILABLE->value
+                    'status' => StatusEnum::AVAILABLE->value,
                 ]);
             }
 

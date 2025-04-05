@@ -12,9 +12,7 @@ use Illuminate\Http\Request;
 
 class InstructorAvailabilityController extends Controller
 {
-    public function __construct(protected InstructorAvailabilityService $availabilityService)
-    {
-    }
+    public function __construct(protected InstructorAvailabilityService $availabilityService) {}
 
     public function index(Request $request): InstructorAvailabilityCollection
     {

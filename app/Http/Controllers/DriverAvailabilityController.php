@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 
 class DriverAvailabilityController extends Controller
 {
-    public function __construct(protected InstructorAvailabilityService $availabilityService)
-    {
-    }
+    public function __construct(protected InstructorAvailabilityService $availabilityService) {}
 
     public function index(Request $request)
     {
@@ -19,5 +17,4 @@ class DriverAvailabilityController extends Controller
 
         return new InstructorAvailabilityCollection($this->availabilityService->getInstructorAvailabilities($instructorId));
     }
-
 }

@@ -19,8 +19,7 @@ class StoreDriverEventRequest extends FormRequest
         return [
             'start' => ['required', 'date', 'after_or_equal:now', new AvailableTimeSlot($instructorId)],
             'end' => 'required|date|after:start',
-            'title' => 'required|string|max:255'
+            'title' => 'required|string|max:255',
         ];
     }
 }
-

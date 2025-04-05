@@ -12,10 +12,7 @@ class DriverEventController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __construct(protected DriverEventService $driverEventService)
-    {
-    }
-
+    public function __construct(protected DriverEventService $driverEventService) {}
 
     public function index(Request $request)
     {
@@ -32,5 +29,4 @@ class DriverEventController extends Controller
 
         return new DriverEventResource($this->driverEventService->createEvent($driver, $eventData));
     }
-
 }

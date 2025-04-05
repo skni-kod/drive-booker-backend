@@ -19,9 +19,7 @@ class AvailableTimeSlot implements ValidationRule
     /**
      * Run the validation rule.
      *
-     * @param string $attribute
-     * @param mixed $value
-     * @param Closure(string): void $fail
+     * @param  Closure(string): void  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
@@ -32,7 +30,7 @@ class AvailableTimeSlot implements ValidationRule
             ->where('end_time', '>=', $endTime)
             ->exists();
 
-        if (!$exists) {
+        if (! $exists) {
             $fail('The selected time slot is not available.');
         }
     }
