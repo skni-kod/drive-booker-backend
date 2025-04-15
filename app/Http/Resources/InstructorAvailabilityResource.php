@@ -12,6 +12,7 @@ class InstructorAvailabilityResource extends JsonResource
         return [
             'start_time' => $this->start_time->toIso8601String(),
             'end_time' => $this->end_time->toIso8601String(),
+            'status' => $this->status,
         ];
     }
 }
