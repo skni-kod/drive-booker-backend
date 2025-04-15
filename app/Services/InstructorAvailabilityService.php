@@ -17,7 +17,7 @@ class InstructorAvailabilityService
 
         return DB::transaction(function () use ($availabilities) {
             $savedSlots = [];
-            InstructorAvailability::where('instructor_id', auth()->id())->where(StatusEnum::AVAILABLE->value)->delete(); //delete old availability
+            InstructorAvailability::where('instructor_id', auth()->id())->where('status', StatusEnum::AVAILABLE->value)->delete(); //delete old availability
             foreach ($availabilities as $slot) {
                 $start = $slot['start_time'];
                 $end = $slot['end_time'];
