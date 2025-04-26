@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Enums\EventsEnum;
+use App\Enums\StatusEnum;
 use App\Models\Event;
+use App\Models\InstructorAvailability;
 
 class AdminEventService
 {
@@ -25,5 +27,10 @@ class AdminEventService
     public function rejectEvent(Event $event): void
     {
         $event->update(['status' => EventsEnum::REJECTED->value]);
+
+        InstructorAvailability::where('instructor_id', $event->instructor_id)
+            ->where('start_time', $event->start)
+            ->where('end_time', $event->end)
+            ->update(['status' => StatusEnum::AVAILABLE->value]);
     }
 }
