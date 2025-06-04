@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('role')->nullable();
             $table->string('phone_number')->nullable();
+            $table->string('phone_country', 2)->nullable();
             $table->string('voivodship')->nullable();
             $table->string('city')->nullable();
             $table->string('zip_code')->nullable();
