@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Http\Resources;
+
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class AdminEventResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'start' => $this->start,
+            'end' => $this->end,
+            'driver' => new DriverResource($this->whenLoaded('driver')),
+            'instructor' => new InstructorResource($this->whenLoaded('instructor')),
+            'status' => $this->status,
+        ];
+    }
+}

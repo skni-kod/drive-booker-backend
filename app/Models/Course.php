@@ -53,4 +53,9 @@ class Course extends Model
     {
         return $this->hasMany(CourseRegistration::class);
     }
+
+    public function drivers(): HasMany
+    {
+        return $this->hasMany(User::class, 'course_id');
+    }
 }
