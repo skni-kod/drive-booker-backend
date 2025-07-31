@@ -36,6 +36,7 @@ class User extends Authenticatable
         'zip_code',
         'street',
         'house_number',
+        'profile_completed'
 
     ];
 

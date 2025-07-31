@@ -11,6 +11,7 @@ use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -18,7 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService) {}
+    public function __construct(protected UserService $userService, protected CreditCardService $creditCardService)
+    {
+    }
 
     public function register(Request $request): JsonResponse
     {
@@ -41,7 +44,7 @@ class AuthController extends Controller
                 'user' => $user,
             ], Response::HTTP_CREATED);
         } catch (Exception $e) {
-            Log::error('User creation failed: '.$e->getMessage());
+            Log::error('User creation failed: ' . $e->getMessage());
 
             return response()->json([
                 'success' => false,
@@ -57,7 +60,7 @@ class AuthController extends Controller
 
         $user = User::with(['roles:id,name'])->where('email', $credentials['email'])->first();
 
-        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
 
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
@@ -92,6 +95,13 @@ class AuthController extends Controller
     public function update(UpdateUserRequest $request, User $user): UserResource
     {
         return new UserResource($this->userService->update($request->updateUser(), $user));
+
+    }
+
+    public function fillProfile(UpdateUserRequest $request)
+    {
+        $user = Auth::user();
+        return new UserResource($this->userService->fillProfile($user, $request->updateUser()));
 
     }
 }
