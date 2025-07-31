@@ -24,6 +24,7 @@ class UserService
     public function fillProfile(User $user, array $data): User
     {
         $user->update(array_merge($data, ['profile_completed' => true]));
+
         return $user;
     }
 }
