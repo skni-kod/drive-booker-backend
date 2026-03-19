@@ -45,7 +45,6 @@ Route::get('/user', function (Request $request) {
 Route::get('/course-locations', [CourseController::class, 'locations']);
 Route::apiResource('/courses', CourseController::class)->except('update');
 
-
 // Student Course Registrations
 Route::controller(GuestCourseRegistrationController::class)->group(function () {
     Route::post('courses/{course}/registrations', 'store');

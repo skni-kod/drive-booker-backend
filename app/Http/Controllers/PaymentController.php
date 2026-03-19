@@ -12,12 +12,12 @@ class PaymentController extends Controller
         $frontendUrl = config('app.frontend_url');
 
         $checkout = $request->user()->checkout([$priceId => 1], [
-            'success_url' => $frontendUrl . '/payment/success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => $frontendUrl . '/payment/cancel',
+            'success_url' => $frontendUrl.'/payment/success?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $frontendUrl.'/payment/cancel',
         ]);
 
         return response()->json([
-            'checkout_url' => $checkout->url
+            'checkout_url' => $checkout->url,
         ]);
     }
 }
