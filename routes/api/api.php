@@ -43,6 +43,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/course-locations', [CourseController::class, 'locations']);
+Route::apiResource('/courses', CourseController::class)->except('update');
+
 
 // Student Course Registrations
 Route::controller(GuestCourseRegistrationController::class)->group(function () {
