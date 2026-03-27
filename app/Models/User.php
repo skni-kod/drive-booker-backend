@@ -38,6 +38,7 @@ class User extends Authenticatable
         'street',
         'house_number',
         'profile_completed',
+        'has_course_access',
 
     ];
 
@@ -61,6 +62,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'has_course_access' => 'boolean',
         ];
     }
 

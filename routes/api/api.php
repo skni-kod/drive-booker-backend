@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(AuthController::class)->group(function () {
+        Route::put('user/profile', 'fillProfile');
         Route::get('user/{user}', 'show');
         Route::put('user/{user}', 'update');
-        Route::put('user/profile', 'fillProfile');
     });
 
     Route::controller(CreditCardController::class)->group(function () {
