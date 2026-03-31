@@ -11,6 +11,7 @@ use App\Services\UserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -92,6 +93,14 @@ class AuthController extends Controller
     public function update(UpdateUserRequest $request, User $user): UserResource
     {
         return new UserResource($this->userService->update($request->updateUser(), $user));
+
+    }
+
+    public function fillProfile(UpdateUserRequest $request)
+    {
+        $user = Auth::user();
+
+        return new UserResource($this->userService->fillProfile($user, $request->updateUser()));
 
     }
 }
