@@ -7,10 +7,33 @@ use App\Enums\StatusEnum;
 use App\Models\Event;
 use App\Models\InstructorAvailability;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class DriverEventService
 {
+    public function getEventsForDriver(User $driver, array $filters = []): Collection
+    {
+        $eventsQuery = $driver
+            ->events()
+            ->with('driver.course.school')
+            ->orderBy('start');
+
+        if (isset($filters['status'])) {
+            $eventsQuery->where('status', $filters['status']);
+        }
+
+        if (($filters['week'] ?? null) === 'current') {
+            $startOfWeek = Carbon::now()->startOfWeek(Carbon::MONDAY);
+            $endOfWeek = Carbon::now()->endOfWeek(Carbon::SUNDAY);
+
+            $eventsQuery->whereBetween('start', [$startOfWeek, $endOfWeek]);
+        }
+
+        return $eventsQuery->get();
+    }
+
     public function createEvent(User $driver, array $data): Event
     {
         return DB::transaction(function () use ($driver, $data) {
