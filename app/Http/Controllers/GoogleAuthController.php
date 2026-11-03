@@ -37,10 +37,16 @@ class GoogleAuthController extends Controller
 
             $frontendUrl = config('app.frontend_url');
 
+            $profileCompleted = $authUser->profile_completed;
+
             EncryptCookies::except('auth_token');
             EncryptCookies::except('roles');
+            EncryptCookies::except('is_completed');
 
-            return redirect("{$frontendUrl}/api/login/google")->withCookie(cookie('auth_token', $token, 0, '/', null, false, true))->withCookie(cookie('roles', json_encode($roles, JSON_UNESCAPED_SLASHES), 0, '/', null, false, true));
+            return redirect("{$frontendUrl}/api/login/google")
+                ->withCookie(cookie('auth_token', $token, 0, '/', null, false, true))
+                ->withCookie(cookie('roles', json_encode($roles, JSON_UNESCAPED_SLASHES), 0, '/', null, false, true))
+                ->withCookie(cookie('is_completed', $profileCompleted ? 'true' : 'false', 0, '/', null, false, true)); // ✅ Set cookie
 
         } catch (Exception $e) {
             return response()->json([

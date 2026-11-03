@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(AuthController::class)->group(function () {
+        Route::put('user/profile', 'fillProfile');
         Route::get('user/{user}', 'show');
         Route::put('user/{user}', 'update');
     });
@@ -42,6 +43,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/course-locations', [CourseController::class, 'locations']);
+Route::apiResource('/courses', CourseController::class)->except('update');
 
 // Student Course Registrations
 Route::controller(GuestCourseRegistrationController::class)->group(function () {

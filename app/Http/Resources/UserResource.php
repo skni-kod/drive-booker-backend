@@ -27,6 +27,7 @@ class UserResource extends JsonResource
             'street' => $this->street,
             'house_number' => $this->house_number,
             'roles' => $this->roles->pluck('name'), // Extracts only role names
+            'is_completed' => $this->profile_completed,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
